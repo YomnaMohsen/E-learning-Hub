@@ -6,6 +6,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'e-learn.db')
 db = SQLAlchemy(app)
 
+stud_course = db.Table('stud_course',
+    db.Column('student_id', db.Integer, db.ForeignKey('student.id')),
+    db.Column('course_id', db.Integer, db.ForeignKey('course.id'))
+)                   
+
 class Instructor(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     user_name = db.Column(db.String(length=35), nullable = False, unique = True)
@@ -32,6 +37,7 @@ class Course(db.Model):
     description= db.Column(db.String(length=500), nullable = False)
     instructor_id = db.Column(db.Integer, db.ForeignKey('instructor.id'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
+    reviews = db.relationship('Review', backref='course', lazy=True)
     
     
 class Student(db.Model):
@@ -39,6 +45,15 @@ class Student(db.Model):
     name = db.Column(db.String(length=25), nullable = False, unique = True)
     email=db.Column(db.String(length=120), nullable = False, unique = True)
     password = db.Column(db.String(length=60), nullable = False)
+    courses = db.relationship('Course', secondary=stud_course, backref='students_enrolled')
+    reviews = db.relationship('Review', backref='student', lazy=True)
+    
+    
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    text = db.Column(db.Text, unique = True)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
     
     
 
