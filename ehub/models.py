@@ -1,10 +1,5 @@
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-import os
-app = Flask(__name__)
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'e-learn.db')
-db = SQLAlchemy(app)
+from ehub import db
+
 
 stud_course = db.Table('stud_course',
     db.Column('student_id', db.Integer, db.ForeignKey('student.id')),
@@ -45,7 +40,7 @@ class Student(db.Model):
     name = db.Column(db.String(length=25), nullable = False, unique = True)
     email=db.Column(db.String(length=120), nullable = False, unique = True)
     password = db.Column(db.String(length=60), nullable = False)
-    courses = db.relationship('Course', secondary=stud_course, backref='students_enrolled')
+    courses = db.relationship('Course', secondary=stud_course, backref='students_enrolled', lazy=True)
     reviews = db.relationship('Review', backref='student', lazy=True)
     
     
@@ -54,36 +49,4 @@ class Review(db.Model):
     text = db.Column(db.Text, unique = True)
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
-    
-    
-
-
-
-@app.route('/')
-@app.route('/home')
-def hello():
-    posts = [
-    {
-        'author': 'Corey Schafer',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'April 20, 2018'
-    },
-    {
-        'author': 'Jane Doe',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'April 21, 2018'
-    }
-]
-
-    return render_template("home.html", posts=posts)
-
-
-@app.route("/about")
-def about():
-    return render_template('about.html', title='About')
-
-if __name__ == '__main__':
-    app.run(debug=True)
 
