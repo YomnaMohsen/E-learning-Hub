@@ -11,7 +11,7 @@ class Instructor(db.Model):
     user_name = db.Column(db.String(length=35), nullable = False, unique = True)
     email=db.Column(db.String(length=120), nullable = False, unique = True)
     password = db.Column(db.String(length=60), nullable = False)
-    #image_file = db.Column(db.String(length=20), nullable=False, default='default.jpg')
+    image_file = db.Column(db.String(length=20), nullable=False, default='default.jpg')
     biography = db.Column(db.Text, nullable = False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     courses = db.relationship('Course', backref='instructor', lazy=True)

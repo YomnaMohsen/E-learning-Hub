@@ -1,6 +1,6 @@
 from ehub import app
 from flask import render_template, flash, redirect, url_for
-from ehub.forms import RegistrationForm, LoginForm
+from ehub.forms import RegistrationForm, LoginForm, RegistrationForm_Teacher
 @app.route('/')
 @app.route('/home')
 def home():
@@ -27,16 +27,16 @@ def about():
     return render_template('about.html', title='About')
 
 @app.route("/register-teacher",  methods=['GET', 'POST'])
-def register_page():
-    form = RegistrationForm()
+def register_inst():
+    form = RegistrationForm_Teacher()
     if form.validate_on_submit():
-        flash(f'Account created successfully for {form.username.data}', 'success')
+        flash(f'Teacher account created successfully ', 'success')
         return redirect(url_for('home'))
-    return render_template('register.html', title = "Register as Teacher", form = form)
+    return render_template('register_teacher.html', title = "Register as Teacher", form = form)
 
 
 @app.route("/register",  methods=['GET', 'POST'])
-def register_inst():
+def register_page():
     form = RegistrationForm()
     if form.validate_on_submit():
         flash(f'Account created successfully for {form.username.data}', 'success')
