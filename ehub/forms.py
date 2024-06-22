@@ -55,6 +55,8 @@ class RegistrationForm_Teacher(FlaskForm):
                         validators=[DataRequired(), Email(), validate_email])
     biography = TextAreaField('Biography', validators=[DataRequired(), Length(min=10)])
     expertise = SelectField('Expertise', choices= fill_list, validators=[DataRequired()])
+    type_online = BooleanField('Online', validators=[DataRequired()])
+    type_videos = BooleanField('Videos', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8), validate_password_complexity])
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])

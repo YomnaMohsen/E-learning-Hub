@@ -19,6 +19,8 @@ class Instructor(db.Model):
     password = db.Column(db.String(length=60), nullable = False)
     #image_file = db.Column(db.String(length=20), nullable=False, default='default.jpg')
     biography = db.Column(db.Text, nullable = False)
+    expertise = db.Column(db.String(length=25),nullable = False)
+    course_type = db.Column(db.String(length=15),nullable = False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     courses = db.relationship('Course', backref='instructor', lazy=True)
     
@@ -36,6 +38,7 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(length=25), nullable = False, unique = True)
     description= db.Column(db.String(length=500), nullable = False)
+    course_type = db.Column(db.String(length=15),nullable = False)
     instructor_id = db.Column(db.Integer, db.ForeignKey('instructor.id'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     reviews = db.relationship('Review', backref='course', lazy=True)

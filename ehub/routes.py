@@ -36,8 +36,9 @@ def register_inst():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         category_obj = Category.query.filter_by(name =form.expertise.data).first()
-        instructor = Instructor(user_name=form.username.data, email=form.email.data,biography=form.biography.data, category_id= category_obj.id,
-                                password=hashed_password)
+        instructor = Instructor(user_name=form.username.data, email=form.email.data,biography=form.biography.data,
+                        expertise = form.expertise.data,            
+                        category_id= category_obj.id, password=hashed_password)
         db.session.add(instructor)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
