@@ -1,4 +1,10 @@
-from ehub import db
+from ehub import db, login_manager
+from flask_login import UserMixin
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Student.query.get(int(user_id))
+
 
 
 stud_course = db.Table('stud_course',
@@ -11,7 +17,7 @@ class Instructor(db.Model):
     user_name = db.Column(db.String(length=35), nullable = False, unique = True)
     email=db.Column(db.String(length=120), nullable = False, unique = True)
     password = db.Column(db.String(length=60), nullable = False)
-    image_file = db.Column(db.String(length=20), nullable=False, default='default.jpg')
+    #image_file = db.Column(db.String(length=20), nullable=False, default='default.jpg')
     biography = db.Column(db.Text, nullable = False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     courses = db.relationship('Course', backref='instructor', lazy=True)
@@ -35,7 +41,7 @@ class Course(db.Model):
     reviews = db.relationship('Review', backref='course', lazy=True)
     
     
-class Student(db.Model):
+class Student(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(length=25), nullable = False, unique = True)
     email=db.Column(db.String(length=120), nullable = False, unique = True)

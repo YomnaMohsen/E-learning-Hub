@@ -45,6 +45,12 @@
                 {% else %}
                 {{ form.biography(class="form-control form-control-lg", placeholder="Biography") }}
                 {% endif %}
+
+                <div class="form-group">
+                      {{ form.expertise.label(class="form-control-label") }}
+                      {{ form.expertise(class= 'form-control', placeholder='Expertise') }}
+
+                </div>    
                 <div class = 'form-group'>
                     {{ form.password.label(class="form-control-label") }}
 
