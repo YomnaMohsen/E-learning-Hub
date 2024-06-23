@@ -1,0 +1,26 @@
+categories: Category 1, Computer Science, Category 2, Busniess, Category 3, Math]
+student1: Esraa, esso@gmail.com, pw= Csysta@87
+student2: Mohammed, moh97@gmail.com, mohmoh@97
+mahmoud mohmoh@98
+
+Inst1: Yomna, ymn_mohsen@yahoo.com, c_type=video, category=1 (comp_science)
+menna, manosh@yahoo.com
+menna1, Mannosh@gmail
+Heba, habbob@microsoft.com
+habiba, hodod@inder.com
+
+
+
+
+checks:
+(Done)
+Add existing student or instructor(done)
+password validation and email(done)
+login with stud acc in instructor page and vice versa(error)(done)
+
+
+(Not done)
+if not one of check boxes selected (registeration stopped but not msg appear)
+expertise if not selected (no action taken)
+whn fields are empty no red warnings
+forget password in login page
