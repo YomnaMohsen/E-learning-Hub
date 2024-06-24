@@ -2,7 +2,7 @@ from ehub import app, db, bcrypt
 from ehub.models import Student, Instructor, Category
 from flask import render_template, flash, redirect, url_for, session
 from ehub.forms import RegistrationForm, LoginForm, RegistrationForm_Teacher
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 @app.route('/')
 @app.route('/home')
 def home():
@@ -88,4 +88,7 @@ def logout():
     return redirect(url_for('home'))
     
 
-
+@app.route("/account/teacher")
+@login_required
+def account_teacher():
+        return render_template("account.html", title="account")
