@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 import re
 from wtforms import StringField, TextAreaField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
@@ -59,6 +60,7 @@ class RegistrationForm_Teacher(FlaskForm):
                         validators=[DataRequired(), Email(), validate_email])
     biography = TextAreaField('Biography', validators=[DataRequired(), Length(min=10)])
     expertise = SelectField('Expertise', choices= fill_list, validators=[DataRequired()])
+    picture = FileField('Upload Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
     type_online = BooleanField('Online')
     type_videos = BooleanField('Videos')
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8), validate_password_complexity])

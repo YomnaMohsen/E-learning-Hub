@@ -1,4 +1,7 @@
 from ehub import app, db, bcrypt
+import os
+from PIL import Image
+import secrets
 from ehub.models import *
 from flask import render_template, flash, redirect, url_for, session, current_app
 from ehub.forms import RegistrationForm, LoginForm, RegistrationForm_Teacher
@@ -13,6 +16,17 @@ student_Permission= Permission(RoleNeed('Student'))
 def home():
     return render_template("home.html")
 
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
 
 @app.route("/register-teacher",  methods=['GET', 'POST'])
 def register_inst():
@@ -23,8 +37,10 @@ def register_inst():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         category_obj = Category.query.filter_by(name =form.expertise.data).first()
         c_type = "Online" if form.type_online.data else "Video"
+        if form.picture.data:
+          pic_file = save_picture(form.picture.data)  
         instructor = Instructor(name=form.username.data, email=form.email.data,biography=form.biography.data,
-                        expertise = form.expertise.data,  course_type = c_type,          
+                        expertise = form.expertise.data, image_file=pic_file,  course_type = c_type,          
                         category_id = category_obj.id, password=hashed_password)
         role = Role.query.filter_by(name ="Instructor").first()
         db.session.add(instructor)
@@ -89,14 +105,14 @@ def account_teacher():
         print("None")
         flash('Permission denied', category='danger')
         return render_template("home.html") 
-    return render_template("account_teacher.html", title="account")
+    return render_template("dashboard_teacher.html", title="account")
     
     
 @app.route("/dash/student")
 @login_required
 @student_Permission.require(http_exception=403)
 def account_student():
-        return render_template("account_std.html", title="account")    
+        return render_template("dashboard_student.html", title="account")    
 
 @app.route("/logout")
 @login_required

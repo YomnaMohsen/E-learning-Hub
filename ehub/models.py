@@ -86,8 +86,6 @@ class Student(db.Model):
     courses = db.relationship('Course', secondary=stud_course, backref='students_enrolled', lazy=True)
     reviews = db.relationship('Review', backref='student', lazy=True)
     
-    def __repr__(self) -> str:
-        return f'Student{self.email}, {self.name} {self.password}'
    
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key = True)
