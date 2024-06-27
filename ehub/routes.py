@@ -3,7 +3,7 @@ from ehub.models import *
 from flask import render_template, flash, redirect, url_for, session, current_app
 from ehub.forms import RegistrationForm, LoginForm, RegistrationForm_Teacher
 from flask_login import login_user, current_user, logout_user, login_required
-from flask_principal import Permission, RoleNeed, identity_changed, Identity
+from flask_principal import Permission, RoleNeed, identity_changed, Identity, AnonymousIdentity
 
 
 instructor_Permission= Permission(RoleNeed('Instructor'))
@@ -102,6 +102,13 @@ def account_student():
 @login_required
 def logout():
     logout_user()
+     # Remove session keys set by Flask-Principal
+    for key in ('identity.name', 'identity.auth_type'):
+        session.pop(key, None)
+
+    # Tell Flask-Principal the user is anonymous
+    identity_changed.send(current_app._get_current_object(),
+                          identity=AnonymousIdentity())
     return redirect(url_for('home'))
     
 
