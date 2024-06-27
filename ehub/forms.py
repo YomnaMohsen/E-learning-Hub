@@ -17,7 +17,7 @@ def validate_password_complexity(form, field):
         raise ValidationError('Email must contain at least one alphabet character, one number, one special character and minimum length 8')
 def validate_username(form, field):
         student = Student.query.filter_by(name=field.data).first()
-        instructor = Instructor.query.filter_by(user_name=field.data).first()
+        instructor = Instructor.query.filter_by(name=field.data).first()
         if student or instructor:
             raise ValidationError('That username is already in use. Please choose a different one.')
        
