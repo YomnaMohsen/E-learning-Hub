@@ -4,7 +4,7 @@ from PIL import Image
 import secrets
 from ehub.models import *
 from flask import render_template, flash, redirect, url_for, session, current_app
-from ehub.forms import RegistrationForm, LoginForm, RegistrationForm_Teacher
+from ehub.forms import RegistrationForm, LoginForm, RegistrationForm_Teacher, Add_newcourse_Form
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_principal import Permission, RoleNeed, identity_changed, Identity, AnonymousIdentity
 
@@ -36,9 +36,16 @@ def register_inst():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         category_obj = Category.query.filter_by(name =form.expertise.data).first()
-        c_type = "Online" if form.type_online.data else "Video"
+        if form.type_online.data and form.type_videos.data:
+           c_type = "Both"
+        elif form.type_online.data:
+            c_type = "Online"
+        else:
+            c_type = "Video"    
         if form.picture.data:
-          pic_file = save_picture(form.picture.data)  
+          pic_file = save_picture(form.picture.data)
+        else:
+            pic_file = "default.png"   
         instructor = Instructor(name=form.username.data, email=form.email.data,biography=form.biography.data,
                         expertise = form.expertise.data, image_file=pic_file,  course_type = c_type,          
                         category_id = category_obj.id, password=hashed_password)
@@ -71,6 +78,9 @@ def register_page():
         return redirect(url_for('login'))
     return render_template('register.html', title = "Register on Site", form = form)
 
+
+
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -83,7 +93,7 @@ def login():
             role = Role.query.filter_by(id = user.role_id).first()
             identity_changed.send(current_app._get_current_object(),
                                   identity=Identity(user.id))
-            flash('Login successful!', category='success')
+            #flash('Login successful!', category='success')
             if role.name == 'Instructor':
                 return redirect(url_for('account_teacher'))
             elif role.name == 'Student':
@@ -93,25 +103,51 @@ def login():
     return render_template('login.html', title = "Login to Site", form = form)
 
 
+def get_instructordata(user_id):
+    user = User.query.filter_by(id =user_id).first()
+    teacher = Instructor.query.filter_by(id =user.user_id).first()
+    image_file = url_for('static', filename='profile_pics/' + teacher.image_file)
+    return teacher, image_file
+
 @app.route("/dash/teacher", methods=['GET', 'POST'])
 @login_required
 @instructor_Permission.require()
 def account_teacher():
     user_id = current_user.id
-    user = User.query.filter_by(id =user_id).first() 
-    print(current_user.password,user.email)
+    teacher, image_file = get_instructordata(user_id)
+    return render_template("dashboard_teacher.html", image_file = image_file, name = teacher.name, 
+                           expert = teacher.expertise, c_type=teacher.course_type, title="account")
     
-    if not user:
-        print("None")
-        flash('Permission denied', category='danger')
-        return render_template("home.html") 
-    return render_template("dashboard_teacher.html", title="account")
+@app.route("/dash/teacher/newcourse", methods=['GET', 'POST'])
+@login_required
+@instructor_Permission.require()
+def account_course():
+    user_id = current_user.id
+    teacher, image_teacher = get_instructordata(user_id)  
+    form = Add_newcourse_Form()
+    if form.validate_on_submit():
+        if form.picture.data:
+          pic_file = save_picture(form.picture.data)
+        else:
+            pic_file = "default.png"   
+        course = Course(name=form.name.data, description=form.description.data,
+                            image_file=pic_file,  course_type= form.Course_type.data, 
+                            price = form.price.data,  instructor_id = teacher.id,category_id =teacher.category_id)
+        db.session.add(course)
+        db.session.commit()
+        flash("Course successfully added", category="success")
+        return redirect(url_for('account_teacher'))
+    return render_template("new_course.html", image_file = image_teacher, name = teacher.name, 
+                           expert = teacher.expertise, c_type=teacher.course_type, form= form,
+                           title="New_Course")
+ 
     
     
 @app.route("/dash/student")
 @login_required
 @student_Permission.require(http_exception=403)
 def account_student():
+        image = 
         return render_template("dashboard_student.html", title="account")    
 
 @app.route("/logout")

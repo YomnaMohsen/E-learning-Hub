@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    justify-content: space-between; /* Distributes space between elements */
+    padding: 20px;
+}
+
+.dashboard {
+    width: 30%; /* Adjust width as needed */
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.form {
+    width: 65%; /* Adjust width as needed */
+    padding: 20px;
+    background-color: #e0e0e0;
+}
+
+.form form {
+    /* Optional: Style form elements */
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack elements vertically on smaller screens */
+    }
+    .dashboard, .form {
+        width: 100%; /* Full width on smaller screens */
+        margin-bottom: 20px;
+    }
+}

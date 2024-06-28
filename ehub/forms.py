@@ -1,9 +1,10 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 import re
-from wtforms import StringField, TextAreaField, PasswordField, SubmitField, BooleanField, SelectField
+from wtforms import StringField, TextAreaField, PasswordField, SubmitField, BooleanField, SelectField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from ehub.models import Student, Category, Instructor
+from ehub.models import Student, Category, Instructor, User, Course
+from flask_login import current_user
 
 # Custom validator function
 def validate_password_complexity(form, field):
@@ -29,6 +30,10 @@ def validate_email(form, email):
     if student or instructor:
         raise ValidationError('That email is already in use. Please choose a different one.')
 
+def validate_name(form, name):
+    C = Course.query.filter_by(name=name.data).first()
+    if C:
+        raise ValidationError('Course name already exists')
 
 #############################################################################################
 
@@ -39,7 +44,8 @@ def fill_list():
     list_names.append("Select Expertise")
     for exp in list_expertise:
         list_names.append(exp.name)
-    return list_names    
+    return list_names
+
     
 
 class RegistrationForm(FlaskForm):
@@ -80,8 +86,17 @@ class RegistrationForm_Teacher(FlaskForm):
                 return True
 
         return False
+    
+class Add_newcourse_Form(FlaskForm):
+    name = StringField('Course Name',
+                           validators=[DataRequired(), validate_name, Length(min=2, max=20)])
+    description = TextAreaField('Description', validators=[DataRequired(), Length(min=10)])
+    picture = FileField('Upload Course Picture', validators=[FileAllowed(['jpg', 'png'])])
+    Course_type = SelectField("Course Type",choices=["Select Course Type", "Online", "Videos"], validators=[DataRequired()])
+    price = IntegerField("Price", validators=[DataRequired()])
+    Add_Course = SubmitField('Add Course')
 
-
+    
 class LoginForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])

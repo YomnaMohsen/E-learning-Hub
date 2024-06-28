@@ -70,10 +70,11 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(length=25), nullable = False, unique = True)
     description= db.Column(db.String(length=500), nullable = False)
+    image_file = db.Column(db.String(length=20), nullable=False, default='default.jpg')
     course_type = db.Column(db.String(length=15),nullable = False)
+    price = db.Column(db.Integer)
     instructor_id = db.Column(db.Integer, db.ForeignKey('instructor.id'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
-    price = db.Column(db.Integer)
     reviews = db.relationship('Review', backref='course', lazy=True)
     
     
