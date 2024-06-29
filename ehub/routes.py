@@ -30,8 +30,8 @@ def save_picture(form_picture):
 
 @app.route("/register-teacher",  methods=['GET', 'POST'])
 def register_inst():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
+   # if current_user.is_authenticated:
+    #    return redirect(url_for('home'))
     form = RegistrationForm_Teacher()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -57,13 +57,16 @@ def register_inst():
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
+    if form.errors != {}: 
+        for err_msg in form.errors.values():
+            flash(f'There was an error with creating a user: {err_msg}', category='danger')
     return render_template('register_teacher.html', title = "Register as Teacher", form = form)
 
 
 @app.route("/register",  methods=['GET', 'POST'])
 def register_page():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
+   # if current_user.is_authenticated:
+    #    return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -76,6 +79,7 @@ def register_page():
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
+    
     return render_template('register.html', title = "Register on Site", form = form)
 
 
@@ -83,8 +87,8 @@ def register_page():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
+   # if current_user.is_authenticated:
+    #    return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -93,7 +97,7 @@ def login():
             role = Role.query.filter_by(id = user.role_id).first()
             identity_changed.send(current_app._get_current_object(),
                                   identity=Identity(user.id))
-            #flash('Login successful!', category='success')
+            flash('Login successful!', category='success')
             if role.name == 'Instructor':
                 return redirect(url_for('account_teacher'))
             elif role.name == 'Student':
@@ -147,11 +151,18 @@ def account_course():
 @login_required
 @student_Permission.require(http_exception=403)
 def account_student():
-        image = 
-        return render_template("dashboard_student.html", title="account")    
+    user_id = current_user.id
+    U = User.query.filter_by(id=user_id).first()
+    Std = Student.query.filter_by(id=U.user_id).first()
+    return render_template("dashboard_student.html", name= Std.name, title="account")    
+
+@app.route("/dash/student/Book")
+@login_required
+@student_Permission.require(http_exception=403)
+def student_Booking():
+    return render_template("book_course.html")
 
 @app.route("/logout")
-@login_required
 def logout():
     logout_user()
      # Remove session keys set by Flask-Principal

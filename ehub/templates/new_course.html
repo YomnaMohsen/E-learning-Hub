@@ -51,7 +51,22 @@
       <a href="/logout">Logout</a>
     </div>
 </div>
-      
+     <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </main> 
 
     <div class="content-section">
          <form method ="POST" action=""  enctype="multipart/form-data">
@@ -64,39 +79,15 @@
             <fieldset align-items-center class ='form-group'>
             <div  class = 'form-group'>
                 {{ form.name.label(class="form-control-label") }}
-                {% if form.name.errors %}
-                 {{ form.name(class="form-control form-control-lg is-invalid") }}
-                 <div class="invalid-feedback">
-                {% for error in form.name.errors %}
-                    <span class="red-text">{{ error }}</span>
-                 {% endfor %}
-             </div>
-            {% else %}
             {{ form.name(class="form-control form-control-lg") }}
-            {% endif %}
-
             </div>
             <div  class = 'form-group'>
             {{ form.description.label(class="form-control-label") }}
-            {% if form.description.errors %}
-            {{ form.description(class="form-control form-control-lg is-invalid") }}
-             <div class="invalid-feedback">
-                {% for error in form.description.errors %}
-                    <span>{{ error }}</span>
-                 {% endfor %}
-             </div>
-        {% else %}
-        {{ form.description(class="form-control form-control-lg") }}
-        {% endif %}
+            {{ form.description(class="form-control form-control-lg") }}
         </div>   
         <div class="form-group">
             {{ form.picture.label() }}
             {{ form.picture(class="form-control-file") }}
-            {% if form.picture.errors %}
-                {% for error in form.picture.errors %}
-                    <span class="text-danger">{{ error }}</span></br>
-                {% endfor %}
-            {% endif %}
         </div>
         <div class="form-group" "col-md-6">
             {{ form.Course_type.label(class="form-control-label") }}
@@ -104,16 +95,8 @@
         </div>      
              <div  class = "form-group">
                 {{ form.price.label(class="form-control-label") }}
-                {% if form.price.errors %}
-                {{ form.price(class="form-control form-control-lg is-invalid") }}
-               <div class="invalid-feedback">
-                {% for error in form.price.errors %}
-                    <span>{{ error }}</span>
-                 {% endfor %}
-             </div>
-              {% else %}
-            {{ form.price(class="form-control form-control-lg") }}
-            {% endif %}      
+                {{ form.price(class="form-control form-control-lg") }}
+             </div>    
         </fieldset> 
         <br> </br>
         <div class = 'form-group'>

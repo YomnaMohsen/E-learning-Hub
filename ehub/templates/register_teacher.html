@@ -6,53 +6,19 @@
             <fieldset class ='form-group'>
                 <div class = 'form-group'>
                     {{ form.username.label(class="form-control-label") }}
-
-                    {% if form.username.errors %}
-                       {{ form.username(class="form-control form-control-lg is-invalid") }}
-                       <div class="invalid-feedback">
-                           {% for error in form.username.errors %}
-                           <div class="alert alert-danger" role="alert">
-                               <span >{{ error }}</span>
-                           {% endfor %}
-                       </div>
-                   {% else %}
-                        {{ form.username (class="form-control form-control-lg", placeholder="User Name") }}
-                   {% endif %}
+                    {{ form.username (class="form-control form-control-lg", placeholder="User Name") }}
                 </div> 
                 <div class = 'form-group'>
                     {{ form.email.label(class="form-control-label") }}
-
-                    {% if form.email.errors %}
-                       {{ form.email(class="form-control form-control-lg is-invalid") }}
-                       <div class="invalid-feedback">
-                           {% for error in form.email.errors %}
-                               <span>{{ error }}</span>
-                           {% endfor %}
-                       </div>
-                   {% else %}
-                        {{ form.email (class="form-control form-control-lg", placeholder="Email address") }}
-                   {% endif %}
+                    {{ form.email (class="form-control form-control-lg", placeholder="Email address") }}
                 </div>
                 <div class = 'form-group'>
                     {{ form.biography.label(class="form-control-label") }}
-                    {% if form.biography.errors %}
-                    {{ form.biography(class="form-control form-control-lg is-invalid") }}
-                     <div class="invalid-feedback">
-                        {% for error in form.biography.errors %}
-                            <span>{{ error }}</span>
-                         {% endfor %}
-                     </div>
-                {% else %}
-                {{ form.biography(class="form-control form-control-lg", placeholder="Biography") }}
-                {% endif %}
+                    {{ form.biography(class="form-control form-control-lg", placeholder="Biography") }}
+                </div> 
                 <div class="form-group">
                     {{ form.picture.label() }}
                     {{ form.picture(class="form-control-file") }}
-                    {% if form.picture.errors %}
-                        {% for error in form.picture.errors %}
-                            <span class="text-danger">{{ error }}</span></br>
-                        {% endfor %}
-                    {% endif %}
                 </div>
                 <div class="form-group">
                       {{ form.expertise.label(class="form-control-label") }}
@@ -70,32 +36,11 @@
                 </div>
                 <div class = 'form-group'>
                     {{ form.password.label(class="form-control-label") }}
-
-                    {% if form.password.errors %}
-                       {{ form.password(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                           {% for error in form.password.errors %}
-                               <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                   {% else %}
-                        {{ form.password (class="form-control form-control-lg", placeholder="Password") }}
-                   {% endif %}
+                    {{ form.password (class="form-control form-control-lg", placeholder="Password") }}
                 </div>
                 <div class = 'form-group'>
                     {{ form.confirm_password.label(class="form-control-label") }}
-
-                    {% if form.confirm_password.errors %}
-                       {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
-                       <div class="invalid-feedback">
-                           {% for error in form.confirm_password.errors %}
-                               <span >{{ error }}</span>
-                            {% endfor %}
-                       </div>
-                   {% else %}
-                      {{ form.confirm_password (class="form-control form-control-lg", placeholder="Confirm Password")}}
-                   {% endif %}
-                       
+                    {{ form.confirm_password (class="form-control form-control-lg", placeholder="Confirm Password")}}                       
                 </div>    
             </fieldset>
             <div class = 'form-group'>
