@@ -1,0 +1,41 @@
+body{
+  background: rgb(197, 197, 209);
+  font-family: Arial, Helvetica, sans-serif;
+}
+form{
+ width:500px ;
+ height: 450px;
+ border: 5px solid rgb(5, 5, 225);
+ padding:25px;
+ marign:50px auto;
+ border-radius: 20px;
+ position: relative;
+ left: 450px;
+ top:25px;
+
+}
+h3{
+  color:rgb(0, 2, 3);
+  font-weight: bold;
+  font-size: 40px;
+  text-align: center;
+  
+}
+.input{
+  width: 400px;
+  height: 60px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  margin-left: 15px;
+  border: 1px solid blue;
+}
+.log{
+  width:120px;
+  height:60px;
+  border: 1px solid blue;
+  font-size:20px;
+  color:black;
+  border-radius: 20px;
+  margin-left: 150px;
+
+}

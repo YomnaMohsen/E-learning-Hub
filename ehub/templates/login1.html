@@ -1,30 +1,55 @@
-{% extends "layout.html" %}
-{% block content %}
-    <div class="content-section">
-        <form method="POST" action="">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Log In</legend>
-                <div class="form-group">
-                    {{ form.email.label(class="form-control-label") }}
-                    {{ form.email(class="form-control form-control-lg") }}
-                </div>
-                <div class="form-group">
-                    {{ form.password.label(class="form-control-label") }}
-                    {{ form.password(class="form-control form-control-lg") }}
-                </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="../static/login.css" />
+    <link rel="stylesheet" href="../static/all.css" />
+
+</head>
+<body>
+    <nav>
+        <div class="container">
+          <div class="logo">
+            <a href="homepage.html"
+              ><img src="../static/profile_pics/logo.jpg" alt="logo" height="100%"
+            /></a>
+          </div>
+          <div class="bars inactive" onclick="toggleBars()">
+            <span></span>
+            <span></span>
+            <span></span>
+            <hr>
+          </div>
+          <div class="links">
+            <ul>
+              <li class="main-list"><a href="homepage.html">Home</a></li>
+              <li class="main-list"><a href="login-page.html">Login</a></li>
+              <li class="main-list">
+                <a href="registration.html">Register</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <form method="POST" action="">
+
+        <h3>Login</h3>
+        {{ form.hidden_tag() }}
+            <div class="input">
+                {{ form.email.label(class="form-control-label") }}
+                {{ form.email(class="form-control form-control-lg") }}
             </div>
-            <small class="text-muted ml-2">
-                <a href="#">Forgot Password?</a>
-            </small>
-        </form>
-    </div>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Need An Account? <a class="ml-2" href="{{ url_for('register_page') }}">Sign Up Now</a>
-        </small>
-    </div>
-{% endblock content %}
+            <div class="input">
+                {{ form.password.label(class="form-control-label") }}
+                {{ form.password(class="form-control form-control-lg") }}
+            </div>
+        <div class="log">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+
+        
+    </form>
+</body>
+</html>
