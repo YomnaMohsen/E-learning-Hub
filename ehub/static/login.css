@@ -7,7 +7,7 @@ form{
  height: 450px;
  border: 5px solid rgb(5, 5, 225);
  padding:25px;
- marign:50px auto;
+ margin:50px auto;
  border-radius: 20px;
  position: relative;
  left: 450px;
@@ -27,6 +27,7 @@ h3{
   border-radius: 20px;
   margin-bottom: 40px;
   margin-left: 15px;
+  font-size: 20px;
   border: 1px solid blue;
 }
 .log{

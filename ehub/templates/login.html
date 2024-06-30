@@ -33,17 +33,18 @@
           </div>
         </div>
       </nav>
+      <div class="content-section ">
       <form method="POST" action="">
 
         <h3>Login</h3>
         {{ form.hidden_tag() }}
-            <div class="input">
+            <div>
                 {{ form.email.label(class="form-control-label") }}
-                {{ form.email(class="form-control form-control-lg") }}
+                {{ form.email(class="form-control from-control-lg input") }}
             </div>
-            <div class="input">
+            <div >
                 {{ form.password.label(class="form-control-label") }}
-                {{ form.password(class="form-control form-control-lg") }}
+                {{ form.password(class="form-control from-control-lg  input") }}
             </div>
         <div class="log">
             {{ form.submit(class="btn btn-outline-info") }}
