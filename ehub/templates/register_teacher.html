@@ -1,7 +1,31 @@
-    <div class="content-section">
+<nav>
+    <div class="container">
+      <div class="logo">
+        <a href="homepage.html"
+          ><img src="../images/logo.jpg" alt="logo" height="100%"
+        /></a>
+      </div>
+      <div class="bars inactive" onclick="toggleBars()">
+        <span></span>
+        <span></span>
+        <span></span>
+        <hr>
+      </div>
+      <div class="links">
+        <ul>
+          <li class="main-list"><a href="homepage.html">Home</a></li>
+          <li class="main-list"><a href="login-page.html">Login</a></li>
+          <li class="main-list">
+            <a href="registration.html">Register</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!--flask code-->
+<div class="content-section">
         <form method ="POST" action=""  enctype="multipart/form-data">
             {{ form.hidden_tag() }}
-            <fieldset class ='form-group'>
                 <div class = 'form-group'>
                     {{ form.username.label(class="form-control-label") }}
                     {{ form.username (class="form-control form-control-lg", placeholder="User Name") }}
@@ -40,7 +64,6 @@
                     {{ form.confirm_password.label(class="form-control-label") }}
                     {{ form.confirm_password (class="form-control form-control-lg", placeholder="Confirm Password")}}                       
                 </div>    
-            </fieldset>
             <div class = 'form-group'>
                 {{ form.submit (class= "btn btn-lg btn-primary") }}
             </div>
@@ -48,5 +71,4 @@
     </div>
     <div class="border-top pt-3">
             Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
-        </small>
     </div>
