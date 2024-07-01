@@ -14,7 +14,7 @@ student_Permission= Permission(RoleNeed('Student'))
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template("home.html")
+    return render_template("homepage.html")
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)

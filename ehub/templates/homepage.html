@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Education</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/collection/components/icon/icon.min.css">
+    <link rel="stylesheet" href="../static/homepage.css" />
+    <link rel="stylesheet" href="../static/all.css" />
+</head>
+<body>
+    <nav>
+        <div class="container">
+          <div class="logo">
+            <a href="homepage.html"
+              ><img src="../static/profile_pics/logo.jpg" alt="logo" height="100%"
+            /></a>
+          </div>
+          <div class="bars inactive" onclick="toggleBars()">
+            <span></span>
+            <span></span>
+            <span></span>
+            <hr>
+          </div>
+          <div class="links">
+            <ul>
+              <li class="main-list"><a href="/home">Home</a></li>
+              <li class="main-list"><a href="/login">Login</a></li>
+              <li class="main-list"><a href="#program">Programs</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <section class="all-layers">
+        <div class="main-sec">
+            <h1><b>Welcome to Online Education Website</b></h1>
+            <h6>About us</h6>
+            <p >An online learning platform that provides educational services remotely.
+                <br> you have many Courses of Software field and management<br> <br>
+                 Best all best Weshies!
+             </p>
+          </div>
+          <div class="need"></div>
+          <img src=""  alt="student image" />
+          <br /><br />
+          <div class="st-sec">
+            <h4>Student</h4>
+            <a href="/register" class="btn">Register As Student</a>
+            <img src="../static/profile_pics/main-page-sign.svg" alt="sign in image"/>
+        </div>
+        <div class="admin-sec">
+            <h4>Instructor</h4>
+            <a href="/register-teacher" class="btn">Register As Instructor</a>
+            <img src="../static/profile_pics/main-page-admin.svg" alt="as a teacher"/>
+        </div>
+        <div class="new-acc">
+            <h4>Login</h4>
+            <a href="/login" class="btn">login</a>
+            <img src="../static/profile_pics/main-page-reg.svg" alt="register image"/>
+        </div>       
+        </section>
+        
+        <!--section of program-->
+        <section class="section ">
+          <div class="section__row">
+              <h2 class="section__title">Programs</h2>
+              <div id="program" class="section__items">
+                  
+                  <a href="/en/e/program_description/1/" target="_blank" class="program-glimpse program-glimpse--link">
+                      <div class="program-glimpse__media">
+                          <img src="/media/Programs/web_r.jpg"
+                               srcset="/media/Programs/web_r.jpg" sizes="300px" alt="">
+                      </div>
+                      <div class="program-glimpse__content">
+                          <div class="program-glimpse__wrapper">
+                              <p class="program-glimpse__title">Web  Project Development</p>
+                              <p>Go from no-code to an in-demand senior web developer with programming skill in Python &amp; JavaScript and lead a team to develop top level projects.</p>
+                          </div>
+                      </div>
+                  </a>
+                  
+                  <a href="/en/e/program_description/2/" target="_blank" class="program-glimpse program-glimpse--link">
+                      <div class="program-glimpse__media">
+                          <img src="/media/Programs/download_NLI51ZA.png"
+                               srcset="/media/Programs/download_NLI51ZA.png" sizes="300px" alt="">
+                      </div>
+                      <div class="program-glimpse__content">
+                          <div class="program-glimpse__wrapper">
+                              <p class="program-glimpse__title">Machine Learning &amp; Beyond</p>
+                              <p>Machine learning focuses on the development of computer programs that can access data and use it to learn for themselves. You will acquire programming &amp; mathematical skills to develop and implement advanced algorithms.</p>
+                          </div>
+                      </div>
+                  </a>
+                  
+                  <a href="/en/e/program_description/4/" target="_blank" class="program-glimpse program-glimpse--link">
+                      <div class="program-glimpse__media">
+                          <img src="/media/Programs/bu_.jpg"
+                               srcset="/media/Programs/bu_.jpg" sizes="300px" alt="">
+                      </div>
+                      <div class="program-glimpse__content">
+                          <div class="program-glimpse__wrapper">
+                              <p class="program-glimpse__title">Finance, Valuation and Trading</p>
+                              <p>Finance and accounting are your first step to learn how to value a project, investment or company.  Your next step is to become a shrewd stock or options trader (not a gambler)</p>
+                          </div>
+                      </div>
+                  </a>
+                  
+                  <div id="more_program_btn" class="button-caesura"> </div>
+              </div>
+          </div>
+      </section>
+        <!--icon of social media-->
+        <div class="icon">
+          <a href="#" aria-label="Facebook"><ion-icon name="logo-facebook"></ion-icon></a>
+          <a href="#" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+          <a href="#" aria-label="Twitter"><ion-icon name="logo-twitter"></ion-icon></a>
+          <a href="#" aria-label="Google"><ion-icon name="logo-google"></ion-icon></a>
+      </div>
+      <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
