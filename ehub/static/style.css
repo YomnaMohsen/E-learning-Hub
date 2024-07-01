@@ -31,5 +31,13 @@ body {
   }
   #sidebar a:hover {
     text-decoration: underline;
+<<<<<<< HEAD
+  #btn_left{
+    position: absolute; 
+    bottom: 0
+  }  
+  }
+=======
   }
   
+>>>>>>> 78708d6f6a8492e2ef7debe98f69f67829a4b73d
