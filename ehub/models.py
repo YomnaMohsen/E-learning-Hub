@@ -43,6 +43,7 @@ class Instructor(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     courses = db.relationship('Course', backref='instructor', lazy=True)
     
+    
 
     
     def __repr__(self) -> str:

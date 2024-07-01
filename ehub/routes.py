@@ -4,18 +4,16 @@ from PIL import Image
 import secrets
 from ehub.models import *
 from flask import render_template, flash, redirect, url_for, session, current_app
-from ehub.forms import RegistrationForm, LoginForm, RegistrationForm_Teacher, Add_newcourse_Form
+from ehub.forms import RegistrationForm, LoginForm, RegistrationForm_Teacher, Add_newcourse_Form, Book_newcourse_Form
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_principal import Permission, RoleNeed, identity_changed, Identity, AnonymousIdentity
 
 
 instructor_Permission= Permission(RoleNeed('Instructor'))
 student_Permission= Permission(RoleNeed('Student'))
-@app.route('/')
-@app.route('/home')
-def home():
-    return render_template("home.html")
 
+##############################################################################
+# Helper fn
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
@@ -27,7 +25,27 @@ def save_picture(form_picture):
     i.save(picture_path)
 
     return picture_fn
+################################################################################
+def get_instructordata(user_id):
+    user = User.query.filter_by(id =user_id).first()
+    teacher = Instructor.query.filter_by(id =user.user_id).first()
+    image_file = url_for('static', filename='profile_pics/' + teacher.image_file)
+    return teacher, image_file
+##################################################################################
+def get_std_data(user_id):
+    user = User.query.filter_by(id =user_id).first()
+    student = Student.query.filter_by(id =user.user_id).first()
+    return student
+################################################################################
+@app.route('/')
+@app.route('/home')
+def home():
+    return render_template("home.html")
 
+
+###############################################################################
+
+# Registeration
 @app.route("/register-teacher",  methods=['GET', 'POST'])
 def register_inst():
    # if current_user.is_authenticated:
@@ -84,7 +102,8 @@ def register_page():
 
 
 
-
+########################################################################33
+#login
 @app.route("/login", methods=['GET', 'POST'])
 def login():
    # if current_user.is_authenticated:
@@ -106,13 +125,8 @@ def login():
             flash('Login unsuccessful, Please check mail and password!', category='danger')
     return render_template('login.html', title = "Login to Site", form = form)
 
-
-def get_instructordata(user_id):
-    user = User.query.filter_by(id =user_id).first()
-    teacher = Instructor.query.filter_by(id =user.user_id).first()
-    image_file = url_for('static', filename='profile_pics/' + teacher.image_file)
-    return teacher, image_file
-
+#################################################################################33
+#Dashboard
 @app.route("/dash/teacher", methods=['GET', 'POST'])
 @login_required
 @instructor_Permission.require()
@@ -152,16 +166,34 @@ def account_course():
 @student_Permission.require(http_exception=403)
 def account_student():
     user_id = current_user.id
-    U = User.query.filter_by(id=user_id).first()
-    Std = Student.query.filter_by(id=U.user_id).first()
-    return render_template("dashboard_student.html", name= Std.name, title="account")    
-
-@app.route("/dash/student/Book")
+    student = get_std_data(user_id)
+    return render_template("dashboard_student.html", name= student.name, title="account")    
+##############################################################################
+#Courses mang.
+@app.route("/dash/student/Book", methods=['GET', 'POST'])
 @login_required
 @student_Permission.require(http_exception=403)
 def student_Booking():
-    return render_template("book_course.html")
-
+    user_id = current_user.id
+    student = get_std_data(user_id)
+    form = Book_newcourse_Form()
+    if form.validate_on_submit():
+       if form.instructor.data:
+           inst = Instructor.query.filter_by(name=form.instructor.data).first()
+           return redirect(url_for('book_inst_course')) 
+       elif form.expertise.data:
+           cat = Category.query.filter_by(name= form.expertise.data).first()    
+    return render_template("book_course.html",form=form,name= student.name, 
+                           title="Booking")
+    
+    
+@app.route("/dash/student/Book/inst_course", methods=['GET', 'POST'])
+@login_required
+@student_Permission.require(http_exception=403)  
+def book_inst_course():
+    return render_template ("course_inst.html", )
+      
+##########################################################################
 @app.route("/logout")
 def logout():
     logout_user()

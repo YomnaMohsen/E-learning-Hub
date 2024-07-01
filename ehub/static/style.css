@@ -31,4 +31,8 @@ body {
   }
   #sidebar a:hover {
     text-decoration: underline;
+  #btn_left{
+    position: absolute; 
+    bottom: 0
+  }  
   }

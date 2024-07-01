@@ -38,16 +38,23 @@ def validate_name(form, name):
 #############################################################################################
 
 
-def fill_list():
+def fill_Inst_list():
+    list_names = []
+    list_inst = Instructor.query.all()
+    list_names.append("Instructor")
+    for I in list_inst:
+        list_names.append(I.name)
+    return list_names
+
+def fill_course_list():
     list_names = []
     list_expertise = Category.query.all()
-    list_names.append("Select Expertise")
+    list_names.append("Expertise")
     for exp in list_expertise:
         list_names.append(exp.name)
     return list_names
-
-    
-
+  
+######################################################################################3
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
                            validators=[Length(min=2, max=20), DataRequired(), validate_username])
@@ -65,7 +72,7 @@ class RegistrationForm_Teacher(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email(), validate_email])
     biography = TextAreaField('Biography', validators=[DataRequired(), Length(min=10)])
-    expertise = SelectField('Expertise', choices= fill_list, validators=[DataRequired()])
+    expertise = SelectField('Expertise', choices= fill_course_list, validators=[DataRequired()])
     picture = FileField('Upload Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
     type_online = BooleanField('Online')
     type_videos = BooleanField('Videos')
@@ -96,7 +103,15 @@ class Add_newcourse_Form(FlaskForm):
     price = IntegerField("Price", validators=[DataRequired()])
     Add_Course = SubmitField('Add Course')
 
+ 
+class Book_newcourse_Form(FlaskForm):
+    instructor = SelectField("Instructor",choices=fill_Inst_list, validators=[DataRequired()])
+    expertise = SelectField('Expertise', choices= fill_course_list, validators=[DataRequired()])
+    Search   = SubmitField('Search')
     
+class course_inst(FlaskForm):
+    type_online = BooleanField('Online')
+    type_videos = BooleanField('Videos')
 class LoginForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
