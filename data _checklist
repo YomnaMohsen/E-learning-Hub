@@ -9,7 +9,9 @@ menna1, Mannosh@gmail
 Heba, habbob@microsoft.com
 habiba, hodod@inder.com
 
-
+ <h5 class="rv-user-title">{{course.name}}</h5>
+        <img src="{{ course.image_file }}" >
+        <h5 class="rv-user-title">{{rewiew.text}}</h5>
 
 
 checks:

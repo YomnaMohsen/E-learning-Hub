@@ -24,7 +24,7 @@
           </div>
           <div class="links">
             <ul>
-              <li class="main-list"><a href="/home">Home</a></li>
+              <li class="main-list"><a href="url_for {{'home'}}">Home</a></li>
               <li class="main-list"><a href="/login">Login</a></li>
             </ul>
           </div>
@@ -61,3 +61,19 @@
     <div class="border-top pt-3">
             Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
     </div>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </main>

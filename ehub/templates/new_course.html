@@ -36,37 +36,19 @@
        <div class="expertice-item">{{expert}}</div>
     </div>
     <br> </br>
-    <div id="sidebar">
-      <h3>User Dashboard</h3>
-      Profile
-      <ul>
-      <a href="#"><li> update profile </li></a>
-      </ul>
-      <a href="#">Courses</a>
+    <h3>User Account</h3>
+      
+      
+      <a href="/dash/teacher"><li> Profile </li></a>
+      Courses
       <ul>
           <a href="/dash/teacher/newcourse"> <li> Add New Course </li></a>
-          <a href="#"> <li> View All Courses </li></a>
+          <a href="/dash/teacher/viewcourses"> <li> View All Courses </li></a>
+          <a href="/dash/teacher/inst_review"> <li> My Reviews </li></a>
       </ul>
-      <a href="#">My Reviews</a>
       <a href="/logout">Logout</a>
     </div>
 </div>
-     <main role="main" class="container">
-      <div class="row">
-        <div class="col-md-8">
-          {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-              {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                  {{ message }}
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
-          {% block content %}{% endblock %}
-        </div>
-      </div>
-    </main> 
 
     <div class="content-section">
          <form method ="POST" action=""  enctype="multipart/form-data">
@@ -107,4 +89,19 @@
 </div>
 </div>
 </div>
-
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-8">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+</main> 

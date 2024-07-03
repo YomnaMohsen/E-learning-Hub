@@ -37,19 +37,35 @@
     </div>
     <br> </br>
     <div>
-      <h3>User Account</h3>
+        <h3>User Account</h3>
       
       
-      <a href="/dash/teacher"><li> Profile </li></a>
-      Courses
-      <ul>
-          <a href="/dash/teacher/newcourse"> <li> Add New Course </li></a>
-          <a href="/dash/teacher/viewcourses"> <li> View All Courses </li></a>
-          <a href="/dash/teacher/inst_review"> <li> My Reviews </li></a>
-      </ul>
- 
-      <a href="/logout"><li>Logout</li></a>
-     
+        <a href="/dash/teacher"><li> Profile </li></a>
+        Courses
+        <ul>
+            <a href="/dash/teacher/newcourse"> <li> Add New Course </li></a>
+            <a href="/dash/teacher/viewcourses"> <li> View All Courses </li></a>
+            <a href="/dash/teacher/inst_review"> <li> My Reviews </li></a>
+        </ul>
+        <a href="/logout">Logout</a>
+      </div>
+
+    <div class="row shows">
+        {% if c_list %}
+            {%for course in c_list %}
+              <div class="col-sm-4">
+                  <div class="tile tile-show">
+                      <img src="{{ course.image_file }}" >
+                      <h2>{{ course.name }}</h2>
+                      <h3> EGP {{ course.price}}</h5>
+                      <h4> {{course.description }} </h3>
+                      <h4> {{course.course_type}} </h4>   
+                   </div>
+             </div>
+           {% endfor %}
+         {%else %}
+          <h4>No Courses created yet</h4>
+        {% endif %}
     </div>
 </div>
 

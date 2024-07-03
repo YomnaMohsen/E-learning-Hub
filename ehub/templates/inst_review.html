@@ -47,17 +47,21 @@
           <a href="/dash/teacher/viewcourses"> <li> View All Courses </li></a>
           <a href="/dash/teacher/inst_review"> <li> My Reviews </li></a>
       </ul>
- 
-      <a href="/logout"><li>Logout</li></a>
-     
+      <a href="/logout">Logout</a>
+    </div>
+    <div class="row shows">
+            {%for r_list in course_review %}
+              <div class="col-sm-4">
+                  <div class="tile tile-show">
+                    <h4> {{ r_list[0] }}</h4> 
+                      {%for r in r_list[1] %} 
+                      <h4> {{ r.text }}</h4> 
+                      <div class="review-star-sprite">
+                        <span class="review-star" style="width: 100%;"></span>
+                    </div> 
+                      {% endfor %}  
+                   </div>    
+                </div>
+           {% endfor %}
     </div>
 </div>
-
-
-   
-
-    
-
- 
-    
-      

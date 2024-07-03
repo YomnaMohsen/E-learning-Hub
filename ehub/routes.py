@@ -11,13 +11,10 @@ from flask_principal import Permission, RoleNeed, identity_changed, Identity, An
 
 instructor_Permission= Permission(RoleNeed('Instructor'))
 student_Permission= Permission(RoleNeed('Student'))
-<<<<<<< HEAD
 @app.route('/')
-@app.route('/home')
+@app.route('/home', strict_slashes=False)
 def home():
     return render_template("homepage.html")
-=======
->>>>>>> 49a73f5d4a715b344519049c30bb1ec9656d6431
 
 ##############################################################################
 # Helper fn
@@ -26,9 +23,9 @@ def save_picture(form_picture):
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
-    output_size = (125, 125)
+   # output_size = (125, 125)
     i = Image.open(form_picture)
-    i.thumbnail(output_size)
+    # i.thumbnail(output_size)
     i.save(picture_path)
 
     return picture_fn
@@ -44,16 +41,10 @@ def get_std_data(user_id):
     student = Student.query.filter_by(id =user.user_id).first()
     return student
 ################################################################################
-@app.route('/')
-@app.route('/home')
-def home():
-    return render_template("home.html")
-
-
 ###############################################################################
 
 # Registeration
-@app.route("/register-teacher",  methods=['GET', 'POST'])
+@app.route("/register-teacher",  methods=['GET', 'POST'], strict_slashes=False)
 def register_inst():
    # if current_user.is_authenticated:
     #    return redirect(url_for('home'))
@@ -88,7 +79,7 @@ def register_inst():
     return render_template('register_teacher.html', title = "Register as Teacher", form = form)
 
 
-@app.route("/register",  methods=['GET', 'POST'])
+@app.route("/register",  methods=['GET', 'POST'], strict_slashes=False)
 def register_page():
    # if current_user.is_authenticated:
     #    return redirect(url_for('home'))
@@ -111,7 +102,7 @@ def register_page():
 
 ########################################################################33
 #login
-@app.route("/login", methods=['GET', 'POST'])
+@app.route("/login", methods=['GET', 'POST'], strict_slashes=False)
 def login():
    # if current_user.is_authenticated:
     #    return redirect(url_for('home'))
@@ -132,9 +123,9 @@ def login():
             flash('Login unsuccessful, Please check mail and password!', category='danger')
     return render_template('login.html', title = "Login to Site", form = form)
 
-#################################################################################33
+#################################################################################
 #Dashboard
-@app.route("/dash/teacher", methods=['GET', 'POST'])
+@app.route("/dash/teacher", methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 @instructor_Permission.require()
 def account_teacher():
@@ -143,7 +134,7 @@ def account_teacher():
     return render_template("dashboard_teacher.html", image_file = image_file, name = teacher.name, 
                            expert = teacher.expertise, c_type=teacher.course_type, title="account")
     
-@app.route("/dash/teacher/newcourse", methods=['GET', 'POST'])
+@app.route("/dash/teacher/newcourse", methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 @instructor_Permission.require()
 def account_course():
@@ -166,9 +157,35 @@ def account_course():
                            expert = teacher.expertise, c_type=teacher.course_type, form= form,
                            title="New_Course")
  
+@app.route("/dash/teacher/viewcourses", methods=['GET', 'POST'], strict_slashes=False)
+@login_required
+@instructor_Permission.require()
+def view_courses(): 
+    user_id = current_user.id
+    teacher, image_teacher = get_instructordata(user_id)
+    return render_template("inst_all_courses.html", image_file = image_teacher, name = teacher.name, 
+                          expert = teacher.expertise,  c_list=teacher.courses, c_type=teacher.course_type, title="View_Courses")
+
+@app.route("/dash/teacher/inst_review", methods=['GET', 'POST'], strict_slashes=False)
+@login_required
+@instructor_Permission.require()
+def review_courses():
+    course_review = []
+    user_id = current_user.id
+    teacher, image_teacher = get_instructordata(user_id)
+    c_list = teacher.courses
+    for c in c_list:
+        if c.reviews:
+            temp_list = []
+            temp_list.append(c.name)
+            temp_list.append(c.reviews)
+            course_review.append(temp_list)
+           
+    return render_template("inst_review.html", image_file = image_teacher, name = teacher.name, 
+                           expert = teacher.expertise,course_review=course_review, c_type=teacher.course_type, title="View_Courses")    
     
-    
-@app.route("/dash/student")
+###############################################################################################################    
+@app.route("/dash/student", strict_slashes=False)
 @login_required
 @student_Permission.require(http_exception=403)
 def account_student():
@@ -177,31 +194,57 @@ def account_student():
     return render_template("dashboard_student.html", name= student.name, title="account")    
 ##############################################################################
 #Courses mang.
-@app.route("/dash/student/Book", methods=['GET', 'POST'])
+@app.route("/dash/student/Book", methods=['GET', 'POST'], strict_slashes=False)
+@app.route("/dash/student/Book/<int:id>", methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 @student_Permission.require(http_exception=403)
-def student_Booking():
+def student_Booking(id = 0):
     user_id = current_user.id
     student = get_std_data(user_id)
+    if id != 0:
+        C = Course.query.filter_by(id = id).first()
+        student.courses.append(C)
+        db.session.commit()
     form = Book_newcourse_Form()
     if form.validate_on_submit():
-       if form.instructor.data:
+    
+       if form.instructor.data != "Instructor":
            inst = Instructor.query.filter_by(name=form.instructor.data).first()
-           return redirect(url_for('book_inst_course')) 
-       elif form.expertise.data:
-           cat = Category.query.filter_by(name= form.expertise.data).first()    
+           return render_template('book_inst_course.html', c_list = inst.courses) 
+       elif form.expertise.data != "Expertise":
+           cat = Category.query.filter_by(name= form.expertise.data).first() 
+           return render_template('book_inst_course.html', c_list = cat.courses)   
     return render_template("book_course.html",form=form,name= student.name, 
                            title="Booking")
     
     
-@app.route("/dash/student/Book/inst_course", methods=['GET', 'POST'])
+@app.route("/dash/student/Booked_courses", methods=['GET', 'POST'], strict_slashes=False)
 @login_required
-@student_Permission.require(http_exception=403)  
-def book_inst_course():
-    return render_template ("course_inst.html", )
-      
+@student_Permission.require(http_exception=403)
+def Booked_course():
+    user_id = current_user.id
+    student = get_std_data(user_id)
+    stud =  Student.query.filter_by(id=student.id).first()
+    return render_template("view_booked_courses.html", list_c = stud.courses)
+
+
+@app.route("/dash/student/reviews", strict_slashes=False)
+@login_required
+@student_Permission.require(http_exception=403)
+def student_review():
+    rev_course=[]
+    user_id = current_user.id
+    student = get_std_data(user_id)
+    R = Review.query.filter_by(student_id =student.id)
+    for rev in R:
+        temp_list =[]
+        C = Course.query.filter_by(id = rev.course_id).first()
+        temp_list.append(C.name)
+        temp_list.append(rev.text)
+        rev_course.append(temp_list)
+    return render_template("std_review.html", name= student.name, review=rev_course, title="Reviews")      
 ##########################################################################
-@app.route("/logout")
+@app.route("/logout", strict_slashes=False)
 def logout():
     logout_user()
      # Remove session keys set by Flask-Principal

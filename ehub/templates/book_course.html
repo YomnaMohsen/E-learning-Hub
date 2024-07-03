@@ -1,3 +1,4 @@
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,46 +16,49 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" />
 <link rel="stylesheet" href="https://www.academiescity.com/css/front_scss.css">
 <link rel="stylesheet" href="https://www.academiescity.com/css/front.css">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="../static/std.css">
+
 
 </head>
 <div class="content-section">
     <div class="media">
+      <img class="rounded-circle account-img" src="{{ url_for('static', filename='student.png') }}">
       <div class="media-body">
         <div class="logged-user-head">
             {{name}}
         </div>
         </div>
     </div>
-    <br> </br>
     <div id="sidebar">
-      Profile
       <ul>
-      <a href="#"><li> update profile </li></a>
+        <a href="/dash/student"><li> Profile </li></a>
+        </ul>
+      Courses
+      <ul>
+          <a href="/dash/student/Book"> <li> Book a Course </li></a>
+          <a href="/dash/student/Booked_courses"><li> Booked Courses </li></a>
+          <a href="/dash/student/reviews"><li> Reviews Given by Me </li></a>
       </ul>
-      
-      <a href="/dash/student/Book"> Book a Course </a>
-      <a href="#"> Booked Courses </a>
-      <a href="#"> Reviews Given by Me </a>
       <a href="/logout">Logout</a>
     </div>
     <p> Choose according to Instructor or Expertise</p>
 
-    <form method ="POST" action="">
-    <div class="form-group col-md-3">
-        
-
+    
+  <div class="form-group ">
+      <form method ="POST" action="">
         {{ form.hidden_tag() }}
+      <div class = "col-md-3">  
         {{ form.instructor.label(class="form-control-label") }}
         {{ form.instructor(class= 'form-control') }}
-      </div> 
+      </div>  
       <div class="form-group col-md-3">
         {{ form.expertise.label(class="form-control-label") }}
         {{ form.expertise(class= 'form-control') }}
-      </div>   
-      <div class = 'form-group'>
+      </div>  
+      <div class = 'inputfield '>
         {{ form.Search (class= "btn btn-lg btn-primary ") }}
-    </div>
-</form>    
+      </div>
+</form>
+</div>
 </div>
     

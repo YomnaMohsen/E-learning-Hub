@@ -24,7 +24,7 @@
       </div>
       <div class="links">
         <ul>
-          <li class="main-list"><a href="/home">Home</a></li>
+          <li class="main-list"><a href="url_for {{'home'}}">Home</a></li>
           <li class="main-list"><a href="/login">Login</a></li>
         </ul>
       </div>
@@ -82,37 +82,19 @@
     <div class="border-top pt-3">
             Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
     </div>
-
-<!--
-      <div class="wrapper">
-        <div class="title">Registration Form</div>
-        <div class="form">
-          <div class="input_field">
-            <label for="full-name">Full Name</label>
-            <input type="text" class="input" id="full-name" />
-          </div>
-          <div class="input_field">
-            <label for="id-number">ID</label>
-            <input type="number" class="input" id="id-number" />
-          </div>
-          <div class="input_field">
-            <label for="password">Password</label>
-            <input type="password" class="input" id="password" />
-          </div>
-          <div class="input_field">
-            <label for="gender">Gender</label>
-            <div class="custom_select">
-              <select id="gender">
-                <option value=""></option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </div>
-          </div>
-          <div class="inputfield">
-            <input type="submit" value="Register" class="btn" id="submit-btn" />
-          </div>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock %}
         </div>
       </div>
-    </body>
-  </html>-->
+    </main>
