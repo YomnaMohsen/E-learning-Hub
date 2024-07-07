@@ -26,7 +26,7 @@ stud_course = db.Table('stud_course',
 class Role(db.Model):
         id = db.Column(db.Integer(), primary_key=True)
         name = db.Column(db.String(15), unique=True)
-        users = db.relationship('User', backref='role', lazy=True)
+        users = db.relationship('User', backref='role', lazy=True,cascade='delete' )
     
 
   
@@ -41,10 +41,9 @@ class Instructor(db.Model):
     expertise = db.Column(db.String(length=25),nullable = False)
     course_type = db.Column(db.String(length=15),nullable = False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
-    courses = db.relationship('Course', backref='instructor', lazy=True)
+    courses = db.relationship('Course', backref='instructor', lazy=True, cascade='delete')
     
     
-
     
     def __repr__(self) -> str:
         return f'Insructor {self.name}, {self.email} {self.course_type} {self.category_id}'
@@ -60,7 +59,7 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(length=35), nullable = False, unique = True)
     instructors = db.relationship('Instructor', backref='category', lazy=True)
-    courses = db.relationship('Course', backref='category', lazy=True)
+    courses = db.relationship('Course', backref='category', lazy=True, cascade='delete')
     
     def __repr__(self) -> str:
         return f'Category {self.id}, {self.name}'
@@ -76,7 +75,6 @@ class Course(db.Model):
     price = db.Column(db.Integer)
     instructor_id = db.Column(db.Integer, db.ForeignKey('instructor.id'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
-    reviews = db.relationship('Review', backref='course', lazy=True)
     
     
     
@@ -86,12 +84,5 @@ class Student(db.Model):
     email=db.Column(db.String(length=120), nullable = False, unique = True)
     password = db.Column(db.String(length=60), nullable = False)
     courses = db.relationship('Course', secondary=stud_course, backref='students_enrolled', lazy=True)
-    reviews = db.relationship('Review', backref='student', lazy=True)
-    
-   
-class Review(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    text = db.Column(db.Text, unique = True)
-    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+ 
 

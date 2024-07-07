@@ -102,6 +102,14 @@ class Add_newcourse_Form(FlaskForm):
     Course_type = SelectField("Course Type",choices=["Select Course Type", "Online", "Videos"], validators=[DataRequired()])
     price = IntegerField("Price", validators=[DataRequired()])
     Add_Course = SubmitField('Add Course')
+    
+class Edit_course_Form(FlaskForm):
+    name = StringField('Course Name',validators=[DataRequired()])
+    description = TextAreaField('Description')
+    picture = FileField('Upload Course Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    Course_type = SelectField("Course Type",choices=["Select Course Type", "Online", "Videos"])
+    price = IntegerField("Price")
+    Edit_Course = SubmitField('Edit Course')
 
  
 class Book_newcourse_Form(FlaskForm):

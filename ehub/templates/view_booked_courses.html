@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" />
 <link rel="stylesheet" href="https://www.academiescity.com/css/front_scss.css">
 <link rel="stylesheet" href="https://www.academiescity.com/css/front.css">
-<link rel="stylesheet" href="../static/std.css">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='course_img.css') }}">
 </head>
 <div class="content-section">
     <div class="media">
@@ -28,24 +28,25 @@
     </div>
     <br> </br>
     <div id="sidebar">
-        <ul>
-            <a href="/dash/student"><li> Profile </li></a>
-            </ul>
+      <ul>
+        <a href="/dash/student/profile"><li> Profile </li></a>
+        </ul>
         Courses
         <ul>
             <a href="/dash/student/Book"> <li> Book a Course </li></a>
-            <a href="/dash/student/Booked_courses"><li> Booked Courses </li></a>
-            <a href="/dash/student/reviews"><li> Reviews Given by Me </li></a>
+            <a href="{{url_for('Booked_course')}}"> <li> Booked Courses</li></a>
+  
         </ul>
         <a href="/logout">Logout</a>
+        
       </div>
       <div class="row shows">
         {% if list_c %}
             {%for course in list_c %}
               <div class="col-sm-4">
                   <div class="tile tile-show">
-                      <img src="{{ course.image_file }}" >
-                      <h2><a href="{{url_for('Booked_course')}}">{{ course.name }}</a></h2>
+                    <img src="{{ url_for('static', filename='profile_pics/'+course.image_file) }}" >
+                      <h2>{{ course.name }}</h2>
                       <h3> EGP {{ course.price}}</h5>
                       <h4> {{course.description }} </h3>
                       <h4> {{course.course_type}} </h4>   

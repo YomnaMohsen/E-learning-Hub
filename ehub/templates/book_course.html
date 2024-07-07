@@ -31,15 +31,15 @@
     </div>
     <div id="sidebar">
       <ul>
-        <a href="/dash/student"><li> Profile </li></a>
+        <a href="/dash/student/profile"><li> Profile </li></a>
         </ul>
-      Courses
-      <ul>
-          <a href="/dash/student/Book"> <li> Book a Course </li></a>
-          <a href="/dash/student/Booked_courses"><li> Booked Courses </li></a>
-          <a href="/dash/student/reviews"><li> Reviews Given by Me </li></a>
-      </ul>
-      <a href="/logout">Logout</a>
+        Courses
+        <ul>
+            <a href="/dash/student/Book"> <li> Book a Course </li></a>
+            <a href="{{url_for('Booked_course')}}"> <li> Booked Courses</li></a>
+  
+        </ul>
+        <a href="/logout">Logout</a>
     </div>
     <p> Choose according to Instructor or Expertise</p>
 

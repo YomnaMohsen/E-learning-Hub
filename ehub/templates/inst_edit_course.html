@@ -19,7 +19,7 @@
 </head>
 <div class="content-section">
     <div class="media">
-      <img class="rounded-circle account-img" src="{{ image_file }}">
+      <img class="rounded-circle account-img" <img src="{{  url_for('static', filename='profile_pics/'+ image_file) }}" >
       <div class="media-body">
         <h2  class="account-heading">{{name}}</h2>
         <p >Instructor</p>
@@ -36,32 +36,56 @@
        <div class="expertice-item">{{expert}}</div>
     </div>
     <br> </br>
-    <div>
-      <h3>User Account</h3>
+    <h3>User Account</h3>
       
       
-      <a href="/dash/teacher"><li> Profile </li></a>
+      <a href="/dash/teacher/profile"><li> Profile </li></a>
       Courses
       <ul>
           <a href="/dash/teacher/newcourse"> <li> Add New Course </li></a>
+          <a href="/dash/teacher/editcourse"> <li> Edit Course </li></a>
           <a href="/dash/teacher/viewcourses"> <li> View All Courses </li></a>
-          <a href="/dash/teacher/inst_review"> <li> My Reviews </li></a>
       </ul>
-      <a href="/logout">Logout</a>
+ 
+      <a href="/logout"><li>Logout</li></a>
     </div>
-    <div class="row shows">
-            {%for r_list in course_review %}
-              <div class="col-sm-4">
-                  <div class="tile tile-show">
-                    <h4> {{ r_list[0] }}</h4> 
-                      {%for r in r_list[1] %} 
-                      <h4> {{ r.text }}</h4> 
-                      <div class="review-star-sprite">
-                        <span class="review-star" style="width: 100%;"></span>
-                    </div> 
-                      {% endfor %}  
-                   </div>    
-                </div>
-           {% endfor %}
-    </div>
+
+    <div class="content-section">
+         <form method ="POST" action=""  enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="box box-default">
+            <div class="box-body">
+            <div class="row">
+            <div class="col-md-6">
+            
+            <fieldset align-items-center class ='form-group'>
+            <div  class = 'form-group'>
+                {{ form.name.label(class="form-control-label") }}
+            {{ form.name(class="form-control form-control-lg") }}
+            </div>
+            <div  class = 'form-group'>
+            {{ form.description.label(class="form-control-label") }}
+            {{ form.description(class="form-control form-control-lg") }}
+        </div>   
+        <div class="form-group">
+            {{ form.picture.label() }}
+            {{ form.picture(class="form-control-file") }}
+        </div>
+        <div class="form-group" "col-md-6">
+            {{ form.Course_type.label(class="form-control-label") }}
+            {{ form.Course_type(class= 'form-control form-control-lg') }}
+        </div>      
+             <div  class = "form-group">
+                {{ form.price.label(class="form-control-label") }}
+                {{ form.price(class="form-control form-control-lg") }}
+             </div>    
+        </fieldset> 
+        <br> </br>
+        <div class = 'form-group'>
+            {{ form.Edit_Course (class= "btn btn-lg btn-primary") }}
+        </div>   
+    </form>
+</div>
+</div>
+</div>
 </div>

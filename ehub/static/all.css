@@ -6,6 +6,7 @@
 
 body {
   margin: 0;
+  background-color: rgb(228, 222, 219);
 }
 
 ::selection {
@@ -40,7 +41,7 @@ body {
   --bs-btn-font-weight: 400;
   --bs-btn-line-height: 1.5;
   --bs-btn-color: var(--lightColor-3);
-  --bs-btn-bg: rgb(21, 21, 185);
+  --bs-btn-bg: rgb(220, 84, 16);
   --bs-btn-border-width: var(--bs-border-width);
   --bs-btn-border-color: transparent;
   --bs-btn-border-radius: var(--bs-border-radius);
@@ -123,7 +124,7 @@ body {
 /* Navigation Styling */
 
 nav {
-  background-color: var(--mainColor);
+  background-color:rgb(156, 63, 4);
   position: sticky;
   top: 0;
   left: 0;
