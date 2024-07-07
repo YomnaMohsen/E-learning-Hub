@@ -1,110 +1,152 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" />
-<link rel="stylesheet" href="https://www.academiescity.com/css/front_scss.css">
-<link rel="stylesheet" href="https://www.academiescity.com/css/front.css">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<div class="content-section">
-    <div class="media">
-      <img class="rounded-circle account-img" src="{{ image_file }}">
-      <div class="media-body">
-        <h2  class="account-heading">{{name}}</h2>
-        <p >Instructor</p>
-        <div class="tib-take-class">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://www.academiescity.com/css/front_scss.css"
+    />
+    <link rel="stylesheet" href="https://www.academiescity.com/css/front.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <div class="new_course">
+    <div class="content-section" style="width:250px">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ image_file }}" />
+        <div class="media-body">
+          <h2 class="account-heading">{{name}}</h2>
+          <p>Instructor</p>
+          <div class="tib-take-class">
             <label text-align: right>Take Classes :</label>
             <div class="course-types tib-type clearfix">
-                {% if c_type == "Both" %}
-                  <div class="course-type c-live">Online</div>
-                  <div class="course-type c-in_house">Videos</div>
-                {% else %} 
-                   <div class="course-type c-live">{{c_type}}</div> 
-                {% endif %}
-       </div>
-       <div class="expertice-item">{{expert}}</div>
-    </div>
-    <br> </br>
-    <div id="sidebar">
-      <h3>User Dashboard</h3>
-      Profile
-      <ul>
-      <a href="#"><li> update profile </li></a>
-      </ul>
-      <a href="#">Courses</a>
-      <ul>
-          <a href="/dash/teacher/newcourse"> <li> Add New Course </li></a>
-          <a href="#"> <li> View All Courses </li></a>
-      </ul>
-      <a href="#">My Reviews</a>
-      <a href="/logout">Logout</a>
-    </div>
-</div>
-     <main role="main" class="container">
-      <div class="row">
-        <div class="col-md-8">
-          {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-              {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                  {{ message }}
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
-          {% block content %}{% endblock %}
-        </div>
-      </div>
-    </main> 
-
-    <div class="content-section">
-         <form method ="POST" action=""  enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <div class="box box-default">
-            <div class="box-body">
-            <div class="row">
-            <div class="col-md-6">
-            
-            <fieldset align-items-center class ='form-group'>
-            <div  class = 'form-group'>
-                {{ form.name.label(class="form-control-label") }}
-            {{ form.name(class="form-control form-control-lg") }}
+              {% if c_type == "Both" %}
+              <div class="course-type c-live">Online</div>
+              <div class="course-type c-in_house">Videos</div>
+              {% else %}
+              <div class="course-type c-live">{{c_type}}</div>
+              {% endif %}
             </div>
-            <div  class = 'form-group'>
-            {{ form.description.label(class="form-control-label") }}
-            {{ form.description(class="form-control form-control-lg") }}
-        </div>   
-        <div class="form-group">
-            {{ form.picture.label() }}
-            {{ form.picture(class="form-control-file") }}
+            <div class="expertice-item">{{expert}}</div>
+          </div>
+          <br />
+          <div id="sidebar">
+            <h3>User Dashboard</h3>
+            Profile
+            <ul>
+              <a href="#"><li>update profile</li></a>
+            </ul>
+            <a href="#">Courses</a>
+            <ul>
+              <a href="/dash/teacher/newcourse"> <li>Add New Course</li></a>
+              <a href="#"> <li>View All Courses</li></a>
+            </ul>
+            <a href="#">My Reviews</a>
+            <a href="/logout">Logout</a>
+          </div>
         </div>
-        <div class="form-group" "col-md-6">
-            {{ form.Course_type.label(class="form-control-label") }}
-            {{ form.Course_type(class= 'form-control form-control-lg') }}
-        </div>      
-             <div  class = "form-group">
-                {{ form.price.label(class="form-control-label") }}
-                {{ form.price(class="form-control form-control-lg") }}
-             </div>    
-        </fieldset> 
-        <br> </br>
-        <div class = 'form-group'>
-            {{ form.Add_Course (class= "btn btn-lg btn-primary") }}
-        </div>   
-    </form>
-</div>
-</div>
-</div>
-</div>
 
+        <main role="main" class="container">
+          <div class="row">
+            <div class="col-md-8">
+              {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %} {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">{{ message }}</div>
+              {% endfor %} {% endif %} {% endwith %} {% block content %}{%
+              endblock %}
+            </div>
+          </div>
+        </main>
+
+      </div>
+    </div>
+    <div class="content-section"style=" flex-basis:100%;">
+      <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="box box-default">
+          <div class="box-body">
+            <div class="row">
+              <div class="col-md-6">
+                <fieldset align-items-center class="form-group">
+                  <div class="form-group">
+                    {{ form.name.label(class="form-control-label") }} {{
+                    form.name(class="form-control form-control-lg") }}
+                  </div>
+                  <div class="form-group">
+                    {{ form.description.label(class="form-control-label") }}
+                    {{ form.description(class="form-control
+                    form-control-lg") }}
+                  </div>
+                  <div class="form-group">
+                    {{ form.picture.label() }} {{
+                    form.picture(class="form-control-file") }}
+                  </div>
+                  <div class="form-group">
+                    {{ form.Course_type.label(class="form-control-label") }}
+                    {{ form.Course_type(class= 'form-control
+                    form-control-lg') }}
+                  </div>
+                  <div class="form-group">
+                    {{ form.price.label(class="form-control-label") }} {{
+                    form.price(class="form-control form-control-lg") }}
+                  </div>
+                </fieldset>
+                <br />
+                <div class="form-group">
+                  {{ form.Add_Course (class= "btn btn-lg btn-primary") }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</html>

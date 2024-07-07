@@ -16,7 +16,77 @@
 <link rel="stylesheet" href="https://www.academiescity.com/css/front_scss.css">
 <link rel="stylesheet" href="https://www.academiescity.com/css/front.css">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="../static/student-profile.css" />
+<link rel="stylesheet" href="../static/all.css" />
+    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="stylesheet" href="../static/homepage.css" />
+
+<style>
+  .content-table th {
+      padding: 20px 90px; /* Adjust the padding values as needed */
+      text-align: left;
+    
+      
+  }
+  .content-table{
+    width:50px;
+    position:relative;
+    top:50px;
+    right:400px;
+  }
+  .content-section{
+    width:250px;
+    position:relative;
+    right:450px;
+  }
+  a:hover{
+    color:black;
+  }
+  
+  ul{
+    border:1px solid black;
+    border-left:none;
+    border-right:none;
+    padding:20px;
+    
+  }
+
+</style>
+
 </head>
+<nav>
+  <div class="container">
+    <div class="logo">
+      <a href="homepage.html"
+        ><img src="../static/profile_pics/logo.jpg" alt="logo" height="100%"
+      /></a>
+    </div>
+    <div class="bars inactive" onclick="toggleBars()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <hr>
+    </div>
+    <div class="links">
+      <ul>
+        <li class="main-list"><a href="/home">Home</a></li>
+        <li class="main-list"><a href="/login">Login</a></li>
+        <li class="main-list"><a href="#program">Programs</a></li>
+        <li class="main-list"><a href="#Instructors">Instructors</a></li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+  <!-- Nav-Bar JS -->
+ <!--information about teacher-->
+ <h1> Instructors Profile </h1>
+ <div class="all-layers">
+  
+
+   <br />
+  <br />
+  <section>
 <div class="content-section">
     <div class="media">
       <img class="rounded-circle account-img" src="{{ image_file }}">
@@ -35,27 +105,41 @@
        </div>
        <div class="expertice-item">{{expert}}</div>
     </div>
-    <br> </br>
+    <br>
     <div id="sidebar">
-      <h3>User Dashboard</h3>
-      Profile
+      <p style="font-size:30px;">User Dashboard Profile</p> 
+    
       <ul>
-      <a href="#"><li> update profile </li></a>
+      <a href="#" style="font-size:15px"; ><li> update profile </li></a>
       </ul>
       <a href="#">Courses</a>
       <ul>
-          <a href="/dash/teacher/newcourse"> <li> Add New Course </li></a>
-          <a href="#"> <li> View All Courses </li></a>
+          <a href="/dash/teacher/newcourse"  style="font-size:15px";> <li> Add New Course </li></a>
+          <a href="#"  style="font-size:15px";> <li> View All Courses </li></a>
       </ul>
-      <a href="/logout">Logout</a>
+      <a href="/logout ">Logout</a>
     </div>
-</div>
 
-
-   
-
-    
-
- 
-    
-      
+  </div>
+</section>
+<section class="upper-layer">
+  <div>
+    <table class="content-table" style="padding:10px;">
+      <tr >
+        <th>Full Name:</th>
+       
+      </tr>
+      <tr>
+        <th>Email:</th>
+       
+      </tr> 
+      <tr>
+        <th>Bio:</th>
+      </tr>
+      <tr>
+        <th>expertise:</th>
+      </tr>
+      </table>
+      </div>
+</section>
+</div>   
