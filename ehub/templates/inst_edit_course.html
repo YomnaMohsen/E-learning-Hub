@@ -19,7 +19,7 @@
 </head>
 <div class="content-section">
     <div class="media">
-      <img class="rounded-circle account-img" <img src="{{  url_for('static', filename='profile_pics/'+ image_file) }}" >
+      <img class="rounded-circle account-img" src="{{ image_file }}">
       <div class="media-body">
         <h2  class="account-heading">{{name}}</h2>
         <p >Instructor</p>
@@ -36,25 +36,45 @@
        <div class="expertice-item">{{expert}}</div>
     </div>
     <br> </br>
-    <h3>User Account</h3>
-      
-      
-      <a href="/dash/teacher/profile"><li> Profile </li></a>
-      Courses
+    <div id="sidebar">
+      <h3>User Dashboard</h3>
+      Profile
+      <ul>
+      <a href="#"><li> update profile </li></a>
+      </ul>
+      <a href="#">Courses</a>
       <ul>
           <a href="/dash/teacher/newcourse"> <li> Add New Course </li></a>
-          <a href="/dash/teacher/editcourse"> <li> Edit Course </li></a>
-          <a href="/dash/teacher/viewcourses"> <li> View All Courses </li></a>
+          <a href="#"> <li> View All Courses </li></a>
       </ul>
- 
-      <a href="/logout"><li>Logout</li></a>
+      <a href="#">My Reviews</a>
+      <a href="/logout">Logout</a>
     </div>
+</div>
+     <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </main> 
 
-    <div class="content-section">
-         <form method ="POST" action=""  enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <div class="box box-default">
-            <div class="box-body">
+      </div>
+    </div>
+    <div class="content-section"style=" flex-basis:100%;">
+      <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="box box-default">
+          <div class="box-body">
             <div class="row">
             <div class="col-md-6">
             
@@ -82,10 +102,11 @@
         </fieldset> 
         <br> </br>
         <div class = 'form-group'>
-            {{ form.Edit_Course (class= "btn btn-lg btn-primary") }}
+            {{ form.Add_Course (class= "btn btn-lg btn-primary") }}
         </div>   
     </form>
 </div>
 </div>
 </div>
 </div>
+
