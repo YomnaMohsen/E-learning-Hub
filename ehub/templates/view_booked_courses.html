@@ -1,58 +1,95 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" />
-<link rel="stylesheet" href="https://www.academiescity.com/css/front_scss.css">
-<link rel="stylesheet" href="https://www.academiescity.com/css/front.css">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='course_img.css') }}">
-</head>
-<div class="content-section">
-    <div class="media">
-    <img class="rounded-circle account-img" src="{{ url_for('static', filename='student.png') }}">    
-      <div class="media-body">
-        <div class="logged-user-head">
-            {{name}}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://www.academiescity.com/css/front_scss.css"
+    />
+    <link rel="stylesheet" href="https://www.academiescity.com/css/front.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='course_img.css') }}">
+  </head>
+  <div class="new_course">
+    <div class="content-section" style="width:250px">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ url_for('static', filename='student.png') }}" />
+          <div id="sidebar">
+            <h2 class="account-heading">{{name}}</h2>
+              <a href="/dash/student/profile">Profile</a>
+              <br>
+              Courses
+              <ul>
+                <a href="/dash/student/Book"> <li> Book a Course </li></a>
+                <a href="{{url_for('Booked_course')}}"> <li> Booked Courses</li></a>
+              </ul>
+              <a href="/logout">Logout</a>
         </div>
-        </div>
-    </div>
-    <br> </br>
-    <div id="sidebar">
-      <ul>
-        <a href="/dash/student/profile"><li> Profile </li></a>
-        </ul>
-        Courses
-        <ul>
-            <a href="/dash/student/Book"> <li> Book a Course </li></a>
-            <a href="{{url_for('Booked_course')}}"> <li> Booked Courses</li></a>
-  
-        </ul>
-        <a href="/logout">Logout</a>
-        
+
       </div>
-      <div class="row shows">
-        {% if list_c %}
-            {%for course in list_c %}
-              <div class="col-sm-4">
-                  <div class="tile tile-show">
-                    <img src="{{ url_for('static', filename='profile_pics/'+course.image_file) }}" >
-                      <h2>{{ course.name }}</h2>
-                      <h3> EGP {{ course.price}}</h5>
-                      <h4> {{course.description }} </h3>
-                      <h4> {{course.course_type}} </h4>   
-                   </div>
-             </div>
-           {% endfor %}
-        {% endif %}
     </div>
-</div>
+    <div class="row shows">
+      {% if list_c %}
+          {%for course in list_c %}
+            <div class="col-sm-5">
+                <div class="tile tile-show">
+                  <img src="{{ url_for('static', filename='profile_pics/'+course.image_file) }}" >
+                    <h3>{{ course.name }}</h3>
+                    <h3> EGP {{ course.price}}</h3>
+                    <h4> {{course.description }} </h4>
+                    <h4> {{course.course_type}} </h4>   
+                 </div>
+           </div>
+         {% endfor %}
+      {% endif %}
+   </div>
+  </div>
+</html>

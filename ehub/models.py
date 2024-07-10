@@ -8,6 +8,7 @@ from flask_principal import identity_loaded, UserNeed, RoleNeed
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# add role to current user
 @identity_loaded.connect_via(app)
 def on_identity_loaded(sender, identity):
     identity.user = current_user
@@ -16,7 +17,7 @@ def on_identity_loaded(sender, identity):
     if hasattr(current_user, 'role'):
         role = Role.query.filter_by(id = current_user.role_id).first()
         identity.provides.add(RoleNeed(role.name))
-
+# many to many
 stud_course = db.Table('stud_course',
     db.Column('student_id', db.Integer, db.ForeignKey('student.id')),
     db.Column('course_id', db.Integer, db.ForeignKey('course.id'))
@@ -42,12 +43,10 @@ class Instructor(db.Model):
     course_type = db.Column(db.String(length=15),nullable = False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     courses = db.relationship('Course', backref='instructor', lazy=True, cascade='delete')
-    
-    
-    
+     
     def __repr__(self) -> str:
         return f'Insructor {self.name}, {self.email} {self.course_type} {self.category_id}'
-    
+ # User that can be instructor or teacher based on role    
 class User(db.Model, UserMixin):  
     id = db.Column(db.Integer, primary_key = True)
     email=db.Column(db.String(length=120), nullable = False, unique = True)

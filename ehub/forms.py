@@ -17,6 +17,7 @@ def validate_password_complexity(form, field):
     # Match the password against the pattern
     if not regex.match(password):
         raise ValidationError('Email must contain at least one alphabet character, one number, one special character and minimum length 8')
+    
 def validate_username(form, field):
         student = Student.query.filter_by(name=field.data).first()
         instructor = Instructor.query.filter_by(name=field.data).first()
@@ -37,7 +38,7 @@ def validate_name(form, name):
 
 #############################################################################################
 
-
+## Gain infromation about users
 def fill_Inst_list():
     list_names = []
     list_inst = Instructor.query.all()
@@ -54,7 +55,8 @@ def fill_course_list():
         list_names.append(exp.name)
     return list_names
   
-######################################################################################3
+######################################################################################
+# Registeration
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
                            validators=[Length(min=2, max=20), DataRequired(), validate_username])
@@ -93,12 +95,13 @@ class RegistrationForm_Teacher(FlaskForm):
                 return True
 
         return False
-    
+#################################################################################
+# Courses   
 class Add_newcourse_Form(FlaskForm):
     name = StringField('Course Name',
                            validators=[DataRequired(), validate_name, Length(min=2, max=20)])
     description = TextAreaField('Description', validators=[DataRequired(), Length(min=10)])
-    picture = FileField('Upload Course Picture', validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField('Upload Course Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     Course_type = SelectField("Course Type",choices=["Select Course Type", "Online", "Videos"], validators=[DataRequired()])
     price = IntegerField("Price", validators=[DataRequired()])
     Add_Course = SubmitField('Add Course')
@@ -117,9 +120,9 @@ class Book_newcourse_Form(FlaskForm):
     expertise = SelectField('Expertise', choices= fill_course_list, validators=[DataRequired()])
     Search   = SubmitField('Search')
     
-class course_inst(FlaskForm):
-    type_online = BooleanField('Online')
-    type_videos = BooleanField('Videos')
+    
+############################################################################
+# Login
 class LoginForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])

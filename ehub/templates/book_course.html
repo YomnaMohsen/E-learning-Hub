@@ -1,4 +1,3 @@
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -59,34 +58,20 @@
     />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='course_img.css') }}">
   </head>
+  </head>
   <div class="new_course">
     <div class="content-section" style="width:250px">
       <div class="media">
-        <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/'+ image_file) }}" />
+        <img class="rounded-circle account-img" src="{{ url_for('static', filename='student.png') }}" />
         <div class="media-body">
           <h2 class="account-heading">{{name}}</h2>
-          <p>Instructor</p>
-          <div class="tib-take-class">
-            <label text-align: right>Take Classes :</label>
-            <div class="course-types tib-type clearfix">
-              {% if c_type == "Both" %}
-              <div class="course-type c-live">Online</div>
-              <div class="course-type c-in_house">Videos</div>
-              {% else %}
-              <div class="course-type c-live">{{c_type}}</div>
-              {% endif %}
-            </div>
-            <div class="expertice-item">{{expert}}</div>
-          </div>
-          <br />
           <div id="sidebar">
-            <a href="/dash/teacher/profile">Profile</a>
+            <a href="/dash/student/profile">Profile</a>
             <br>
             Courses
             <ul>
-              <a href="/dash/teacher/newcourse"> <li>Add New Course</li></a>
-              <a href="/dash/teacher/editcourse"> <li> Edit Course </li></a>
-              <a href="/dash/teacher/viewcourses"> <li> View All Courses </li></a>
+              <a href="/dash/student/Book"> <li> Book a Course </li></a>
+              <a href="{{url_for('Booked_course')}}"> <li> Booked Courses</li></a>
             </ul>
             <a href="/logout">Logout</a>
           </div>
@@ -94,27 +79,23 @@
 
       </div>
     </div>
-    <section class="upper-layer">
-      <div>
-         <table class="content-table" style="padding:10px;">
-          <tr>
-            <td>Full Name: {{name}}</td>
-          </tr>
-          <tr>
-            <td>     </td>
-            <td>     </td>
-          </tr>
-          <tr>
-            <td>Email: {{email}}</td>
-          </tr> 
-          <tr>
-          <td>Bio: {{bio}}</td>
-          </tr>
-          <tr>
-          <td>Expertise: {{expert}}</td>
-          </tr>
-        </table>
-       </div>
-  </section>
- </div>
-</html>
+   
+    <div class="form-group shows">
+      <p> Choose according to Instructor or Expertise</p>
+      <form method ="POST" action="">
+        {{ form.hidden_tag() }}
+      <div class = "form-group col-md-6 tile tile-show ">  
+        {{ form.instructor.label(class="form-control-label") }}
+        {{ form.instructor(class= 'form-control') }}
+      </div>  
+      <div class="form-group col-md-6 tile tile-show">
+        {{ form.expertise.label(class="form-control-label") }}
+        {{ form.expertise(class= 'form-control') }}
+      </div> 
+      <div class = 'inputfield tile tile-show'>
+        {{ form.Search (class= "btn btn-lg btn-primary ") }}
+         </div>  
+     </form>  
+    </div>
+  </div>
+ </html>

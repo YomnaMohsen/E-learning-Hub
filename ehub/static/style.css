@@ -187,21 +187,6 @@ nav .container .links .main-list > a {
   transition: var(--mainTransition);
 }
 
-/* Transaction from left to right */
-/*nav .container .links .main-list > a::after {*/
-/*  content: "";*/
-/*  width: 0;*/
-/*  position: absolute;*/
-/*  left: 0;*/
-/*  bottom: -3px;*/
-/*  height: 2px;*/
-/*  transition: var(--mainTransition);*/
-/*  background-color: var(--lightColor);*/
-/*}*/
-
-/*nav .container .links .main-list:hover > a::after {*/
-/*  width: 100%;*/
-/*}*/
 
 /*Transaction from inside to outside*/
 nav .container .links .main-list > a::after {

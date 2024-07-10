@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="../static/Registration.css" />
+    <link rel="stylesheet" href="../static/all.css" />
+    <link rel="stylesheet" href="../static/homepage.css" />
+</head>
+<body>
+<nav>
+    <div class="container">
+      <div class="logo">
+        <a href="homepage.html"
+          ><img src="../static/profile_pics/logo.jpg" alt="logo" height="100%"
+        /></a>
+      </div>
+      <div class="bars inactive" onclick="toggleBars()">
+        <span></span>
+        <span></span>
+        <span></span>
+        <hr>
+      </div>
+      <div class="links">
+        <ul>
+          <li class="main-list"><a href="/home">Home</a></li>
+          <li class="main-list"><a href="/login">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!--flask code-->
+<div class="wrapper">
+  <div class="title">Registration Instructor</div>
+  <div class="form">
+        <form method ="POST" action=""  enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+                <div class = 'form-group input_field'>
+                    {{ form.username.label(class="form-control-label") }}
+                    {{ form.username (class="form-control form-control-lg input",id="full-name", placeholder="User Name") }}
+                </div> 
+                <div class = 'form-group input_field'>
+                    {{ form.email.label(class="form-control-label") }}
+                    {{ form.email (class="form-control form-control-lg input",id="id-number",placeholder="Email address") }}
+                </div>
+                <div class = 'form-group input_field'>
+                    {{ form.biography.label(class="form-control-label") }}
+                    {{ form.biography(class="form-control form-control-lg input",id="password", placeholder="Biography") }}
+                </div> 
+                <div class="form-group input_field">
+                    {{ form.picture.label() }}
+                    {{ form.picture(class="form-control-file") }}
+                </div>
+                <div class="form-group input_field">
+                      {{ form.expertise.label(class="form-control-label") }}
+                      {{ form.expertise(class= 'form-control custom_select',id="gender", placeholder='Expertise') }}
+
+                </div> 
+                <p> Type of classes </p>
+                <div class="form-check">
+                    {{ form.type_online(class="form-check-input") }}
+                    {{ form.type_online.label(class="form-check-label ") }}
+                </div>
+                <div class="form-check">
+                    {{ form.type_videos(class="form-check-input") }}
+                    {{ form.type_videos.label(class="form-check-label ") }}
+                </div>
+                <div class = 'form-group input_field'>
+                    {{ form.password.label(class="form-control-label") }}
+                    {{ form.password (class="form-control form-control-lg input", placeholder="Password") }}
+                </div>
+                <div class = 'form-group input_field'>
+                    {{ form.confirm_password.label(class="form-control-label") }}
+                    {{ form.confirm_password (class="form-control form-control-lg input", placeholder="Confirm Password")}}                       
+                </div>    
+            <div class = 'form-group inputfield'>
+                {{ form.submit (class= "btn btn-lg btn-primary") }}
+            </div>
+        </form>
+    </div>
+    <div class="border-top pt-3">
+            Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
+    </div>
+  </body>
+  </html>

@@ -1,6 +1,6 @@
 from ehub import app, db, bcrypt
 import os
-from PIL import Image
+#from PIL import Image
 import secrets
 from ehub.models import *
 from flask import render_template, flash, redirect, url_for, session, current_app, request
@@ -19,7 +19,7 @@ def home():
     return render_template("homepage.html")
 
 ##############################################################################
-# Helper fn
+# Helper functions
 def save_picture(f_name):
     file_name = secure_filename(f_name)
     pic_name = str(uuid.uuid1()) + '_' + file_name
@@ -27,7 +27,7 @@ def save_picture(f_name):
     basedir = os.path.abspath(os.path.dirname(__file__))
     saver.save(os.path.join(basedir, app.config['UPLOAD_FOLDER'], pic_name))
     return pic_name
-################################################################################
+# gain information about user
 def get_instructordata(user_id):
     user = User.query.filter_by(id =user_id).first()
     teacher = Instructor.query.filter_by(id =user.user_id).first()
@@ -117,7 +117,7 @@ def login():
     return render_template('login.html', title = "Login to Site", form = form)
 
 #################################################################################
-#Dashboard
+#Teacher account
 @app.route("/dash/teacher/profile", methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 @instructor_Permission.require()
@@ -125,9 +125,11 @@ def account_teacher():
     user_id = current_user.id
     teacher, image_file = get_instructordata(user_id)
     return render_template("inst_profile.html", image_file = image_file, name = teacher.name, 
+                           email= teacher.email, bio= teacher.biography,
                            expert = teacher.expertise, c_type=teacher.course_type, title="account")
 
-
+##################################################################################
+# teacher courses mangement
 @app.route("/dash/teacher/newcourse", methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 @instructor_Permission.require()
@@ -165,15 +167,17 @@ def edit_course():
                 break
         if form.description.data:
             C_obj.description = form.description.data
-        
-        if form.price.data:
-            C_obj.price = form.price.data
-        
-        if form.Course_type.data:
-            C_obj.course_type = form.Course_type.data          
-        
+            
         if form.picture.data:
-            C_obj.image_file = save_picture(form.picture.data.filename)
+            C_obj.image_file = save_picture(request.files['picture'].filename)    
+        
+        
+        if form.Course_type.data != "Select Course Type":
+            C_obj.course_type = form.Course_type.data
+            
+        if form.price.data:
+            C_obj.price = form.price.data            
+          
         db.session.commit()
         flash("Course successfully edited", category="success")
         return redirect(url_for('account_teacher'))
@@ -190,18 +194,19 @@ def view_courses():
     return render_template("inst_all_courses.html", image_file = image_teacher, name = teacher.name, 
                           expert = teacher.expertise,  c_list=teacher.courses, c_type=teacher.course_type, title="View_Courses")
     
-###############################################################################################################    
+###############################################################################################################  
+# student account  
 @app.route("/dash/student/profile", strict_slashes=False)
 @login_required
 @student_Permission.require(http_exception=403)
 def account_student():
     user_id = current_user.id
     student = get_std_data(user_id)
-    return render_template("dashboard_student.html", name= student.name, title="account")  
+    return render_template("stud_profile.html", name= student.name, email=student.email, title="account")  
 ######################################################################################
 
-##############################################################################
-#Courses mang.
+
+# student Courses mang.
 @app.route("/dash/student/Book", methods=['GET', 'POST'], strict_slashes=False)
 @app.route("/dash/student/Book/<int:id>", methods=['GET', 'POST'], strict_slashes=False)
 @login_required
@@ -209,11 +214,10 @@ def account_student():
 def student_Booking(id = 0):
     user_id = current_user.id
     student = get_std_data(user_id)
+    unbooked_courses=[]
     if id != 0:
         C = Course.query.filter_by(id = id).first()
-        if C in student.courses:
-            flash ("already booked")
-        else:    
+        if C not in student.courses:   
             student.courses.append(C)
             db.session.commit()
         return redirect (url_for("account_student", name= student.name, title="account"))
@@ -222,10 +226,17 @@ def student_Booking(id = 0):
     
        if form.instructor.data != "Instructor":
            inst = Instructor.query.filter_by(name=form.instructor.data).first()
-           return render_template('book_inst_course.html', c_list = inst.courses) 
+           # check if courses already booked
+           for crs in inst.courses:
+               if crs not in student.courses:
+                   unbooked_courses.append(crs)
+           return render_template('book_inst_course.html', c_list = unbooked_courses) 
        elif form.expertise.data != "Expertise":
-           cat = Category.query.filter_by(name= form.expertise.data).first() 
-           return render_template('book_inst_course.html', c_list = cat.courses)   
+           cat = Category.query.filter_by(name= form.expertise.data).first()
+           for crs in cat.courses:
+               if crs not in student.courses:
+                   unbooked_courses.append(crs)
+           return render_template('book_inst_course.html', c_list =unbooked_courses )   
     return render_template("book_course.html",form=form,name= student.name, 
                            title="Booking")
     
@@ -237,7 +248,7 @@ def Booked_course():
     user_id = current_user.id
     student = get_std_data(user_id)
     stud =  Student.query.filter_by(id=student.id).first()
-    return render_template("view_booked_courses.html", list_c = stud.courses)
+    return render_template("view_booked_courses.html",name=stud.name, list_c = stud.courses)
      
 ##########################################################################
 @app.route("/logout", strict_slashes=False)
