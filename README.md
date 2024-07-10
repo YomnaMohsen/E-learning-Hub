@@ -4,7 +4,6 @@
 
 ## Table of Contents
 <br></br>
-
 - [Introduction](#introduction)
 - [FeatureUseds](#features)
 - [Technologies ](#technology)
@@ -20,7 +19,6 @@ As future work, student can see biography of instructors before booking, also ma
 
 
 ## Features: <a name="features"></a>
-<br> </br>
 <ul>
 <li>Instructor & Student registerations, login and logout</li>
 <li>Instructor can add and edit courses</li>
@@ -29,7 +27,6 @@ As future work, student can see biography of instructors before booking, also ma
 </ul>
 
 ## Technologies: <a name="technology"></a>
-<br> </br>
 <ul>
 <li><b>Python as programming language</b></li>
 <li><b>Flask as web framework </b></li>
@@ -40,7 +37,6 @@ As future work, student can see biography of instructors before booking, also ma
 
 
 ## Usage: <a name="usage"></a>
-<br> </br>
 <ul>
 <li><b>Register:</b> Create a new account as student or instructor</li>
 <li><b>Login</b> Different types of users can login and redirected to their accounts</li>
@@ -52,8 +48,7 @@ As future work, student can see biography of instructors before booking, also ma
 
 
 ## Project Structure: <a name="structure"></a>
-<br> </br>
-├── README.md
+├── README.md<br> </br>
 ├── ehub
 │   ├── __init__.py     (file to initialize ehub package )
 │   ├── e-learn.db      (database file)
