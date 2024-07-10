@@ -1,9 +1,7 @@
 # Elearning-Hub website
-<br> </br>
 <img src= "Home.png">
 
 ## Table of Contents
-<br></br>
 - [Introduction](#introduction)
 - [FeatureUseds](#features)
 - [Technologies ](#technology)
@@ -13,7 +11,6 @@
 - [Authors](#authors)
 
 ## Introduction: <a name="introduction"></a>
-<br></br>
 Elearning-Hub website provides newer features than traditional Elearning websites, as it enables instructors to provide different types of classes either live classes(on-line) or recorded videos as usual. Students can book courses by selecting either the instructor in certain category or by selecting category that shows courses related to many instructors in the same category.
 As future work, student can see biography of instructors before booking, also many features will be added.
 
@@ -58,11 +55,9 @@ As future work, student can see biography of instructors before booking, also ma
 └── run.py              (Run main application)<br></br>
 
 ## Demo: <a name="demo"></a>
-<a href="https://youtu.be/POJ-piPh2JQ?si=yxjGUW3q6jxKs7RX">Link</a>
-<br></br>
+<a href="https://youtu.be/POJ-piPh2JQ?si=yxjGUW3q6jxKs7RX"><b>Demo Link</b></a>
 Landing Page coming soon .....
 
-## Authors: <a name="authors></a>
-<br></br>
+## Authors: <a name="authors"></a>
 Yomna Mohsen- <a href="https://github.com/YomnaMohsen/">Github</a>
 Esraa Alaa- <a href="https://github.com/489Esraa/">Github</a> 
