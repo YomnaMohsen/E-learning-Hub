@@ -49,16 +49,17 @@ As future work, student can see biography of instructors before booking, also ma
 
 ## Project Structure: <a name="structure"></a>
 ├── README.md<br> </br>
-├── ehub
-│   ├── __init__.py     (file to initialize ehub package )
-│   ├── e-learn.db      (database file)
-│   ├── forms.py        (Defines flask forms classes)
-│   ├── models.py       (Defines db models)
-│   └── routes.py       (Defines user interactions login, register, book,...)
-└── run.py              (Run main application)
+├── ehub<br> </br>
+│   ├── __init__.py     (file to initialize ehub package )<br> </br>
+│   ├── e-learn.db      (database file)<br> </br>
+│   ├── forms.py        (Defines flask forms classes)<br> </br>
+│   ├── models.py       (Defines db models)<br> </br>
+│   └── routes.py       (Defines user interactions login, register, book,...)<br></br>
+└── run.py              (Run main application)<br></br>
 
 ## Demo: <a name="demo"></a>
-<a href="(https://youtu.be/POJ-piPh2JQ?si=yxjGUW3q6jxKs7RX)">Link</a>
+<a href="https://youtu.be/POJ-piPh2JQ?si=yxjGUW3q6jxKs7RX">Link</a>
+<br></br>
 Landing Page coming soon .....
 
 ## Authors: <a name="authors></a>
